@@ -1,0 +1,43 @@
+---
+title: "Les 1"
+author: "Bas Kasemir & Rick venema"
+date: "16-4-2018"
+output:
+  pdf_document:
+    latex_engine: xelatex
+    toc: true
+    toc_depth: 2
+    highlight: tango
+geometry: margin=0.65in
+mainfont: Lato-Light
+sansfont: Lato-Regular
+romanfont: Lato-Light
+monofont: NotoMono-Regular.ttf
+---
+
+# Les 1 Opdrachten
+## 1.0 Experiment
+
+
+## 2.0 Programmeer opdracht
+``` {r 2.0}
+library(deSolve)
+
+parameters <- c(addVolume = 10, pV = 0.1) 
+
+volume <- function(t, y, parms){
+  with(as.list(c(parms)), {
+    dY <- addVolume - pV * (y+addVolume) return(list(c(dY)))
+    }
+    )
+}
+# BAS TESTLINE
+```
+
+## 3.0 Oefenen met de tutorial
+
+
+
+
+
+
