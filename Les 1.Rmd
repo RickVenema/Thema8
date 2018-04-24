@@ -27,12 +27,36 @@ parameters <- c(addVolume = 10, pV = 0.1)
 
 volume <- function(t, y, parms){
   with(as.list(c(parms)), {
-    dY <- addVolume - pV * (y+addVolume) return(list(c(dY)))
+      dY <- addVolume - pV * (y)
+      return(list(c(dY)))
     }
     )
 }
 
+#initial state
+state <- c(Volume = 10)
+
+#define time sequence you want to run the model
+times <- seq(0, 300,  by = 1)
+
+# run simulation using continuous approach
+out  <- ode(times = times, y = state,   parms = parameters, func = volume, method = "euler")
+
+#Print de uitkomst
+head(out)
+
+#plot de uitkomst
+plot(out)
 ```
+
+### Beantwoord de volgende vragen
+**[1] Verander de parameters. Wat is het effect?**
+  Hoe groter de parameters, hoe steiler de grafiek. (En vice versa).
+**[2] Verander de initiële waarde. Wat is het effect?**
+  Hierdoor zal er meer verdwijnen per tijdsstap. Ook krijgt de y-as een andere verdeling die bij deze nieuwe waarde begint.
+**[3] Verander de timeframe. Wat is het effect?**
+  Het duurt minder lang om hetzelfde effect te bereiken.
+**[4] Verander het originele model zodat de correctie niet is op basis van (y+addVolume) maar y. Wanneer is er nu een evenwichts toestand?**
 
 ## 3.0 Oefenen met de tutorial
 
