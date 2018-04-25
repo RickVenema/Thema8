@@ -27,3 +27,33 @@ Voor het model zou de "rate of decay of existing transcripts" geprogrammeerd moe
 **[3] Teken het biologisch model en leg de vertaling naar de formule uit.**
 image: ![](./Biological-Model-RNA-Decay.png)
 **[4] Wat is de return waarde van de model functie in R? Waarom return je die en niet R zelf?**
+
+## 2.0 programmeeropdracht
+``` {r BIOMODULE}
+library(deSolve)
+parameters <- c(r = 0, m = 0) 
+parameters_increase <- c(r = 1, m = 125)#R=10
+parameters_decrease <- c(r = 1, m = 75)
+ 
+
+volume <- function(t, y, parms){
+   with(as.list(c(parms)), {
+       dY <- -r * y + m
+       return(list(c(dY)))
+     }
+   )
+}
+
+#initial state
+state <- c(R = 100)
+
+#define time sequence you want to run the model
+times <- seq(0, 6,  by = 0.001)
+# run simulation using continuous approach
+out  <- ode(times = times, y = state,   parms = parameters, func = volume, method = "euler")
+out_increase  <- ode(times = times, y = state,   parms = parameters_increase, func = volume, method = "euler")
+out_decrease  <- ode(times = times, y = state,   parms = parameters_decrease, func = volume, method = "euler")
+head(out)
+plot(out, out_increase, out_decrease)
+
+``` 
