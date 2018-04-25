@@ -17,6 +17,12 @@ monofont: NotoMono-Regular.ttf
 
 # Les 1 Opdrachten
 ## 1.0 Experiment
+**[1] Welke parameters (constantes) zitten er in de vergelijking?**
+**[2] Welke variabele uit de vergelijking veranderd steeds?**
+**[3] Wat is de initiele waarde van de variabele uit vraag 2?**
+**[4] Wat is het tijdsframe van dit experiment? (t = 0 tot t = ……. )**
+**[5] Wanneer is het evenwichtsmoment?**
+**[6] Uit welke variabele uit de vergelijking kunnen we dat aflezen?**
 
 
 ## 2.0 Programmeer opdracht
@@ -30,7 +36,7 @@ volume <- function(t, y, parms){
       dY <- addVolume - pV * (y)
       return(list(c(dY)))
     }
-    )
+  )
 }
 
 #initial state
@@ -51,11 +57,16 @@ plot(out)
 
 ### Beantwoord de volgende vragen
 **[1] Verander de parameters. Wat is het effect?**
+  
   Hoe groter de parameters, hoe steiler de grafiek. (En vice versa).
+  
 **[2] Verander de initiële waarde. Wat is het effect?**
+  
   Hierdoor zal er meer verdwijnen per tijdsstap. Ook krijgt de y-as een andere verdeling die bij deze nieuwe waarde begint.
+  
 **[3] Verander de timeframe. Wat is het effect?**
   Het duurt minder lang om hetzelfde effect te bereiken.
+  
 **[4] Verander het originele model zodat de correctie niet is op basis van (y+addVolume) maar y. Wanneer is er nu een evenwichts toestand?**
 
 ## 3.0 Oefenen met de tutorial
