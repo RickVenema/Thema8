@@ -1,7 +1,28 @@
 ---
 title: "Assignment week 1"
-author: "Bas Kasemir & Rick Venema"
-date: "25-4-2018"
-output: pdf_document
+author: "Bas Kasemir & Rick venema"
+date: "25-04-2018"
+output:
+  pdf_document:
+    latex_engine: xelatex
+    toc: true
+    toc_depth: 2
+    highlight: tango
+geometry: margin=0.65in
+mainfont: Lato-Light
+sansfont: Lato-Regular
+romanfont: Lato-Light
+monofont: NotoMono-Regular.ttf
 ---
 
+# Week 1 assignment
+
+## 1.0 opdracht
+
+**[1] Welke parameters moet je programmeren?**
+Voor het model zou de "rate of decay of existing transcripts" geprogrammeerd moeten worden.
+  
+**[2] Zoek bronnen op internet die uitleggen waar de formule dR/dt = -rR + m vandaan komt.**
+
+**[3] Teken het biologisch model en leg de vertaling naar de formule uit.**
+**[4] Wat is de return waarde van de model functie in R? Waarom return je die en niet R zelf?**

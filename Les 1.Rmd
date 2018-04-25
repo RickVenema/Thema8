@@ -1,7 +1,7 @@
 ---
 title: "Les 1"
 author: "Bas Kasemir & Rick venema"
-date: "24-4-2018"
+date: "25-04-2018"
 output:
   pdf_document:
     latex_engine: xelatex
@@ -18,18 +18,12 @@ monofont: NotoMono-Regular.ttf
 # Les 1 Opdrachten
 ## 1.0 Experiment
 **[1] Welke parameters (constantes) zitten er in de vergelijking?**
-  • Het aantal toevoegen per tijdseenheid (10)
-  • Het percentage dat er vanaf moet worden gehaald (0.1)
 **[2] Welke variabele uit de vergelijking veranderd steeds?**
-  Het aantal dat op de schaal ligt.
 **[3] Wat is de initiele waarde van de variabele uit vraag 2?**
-  10
 **[4] Wat is het tijdsframe van dit experiment? (t = 0 tot t = ……. )**
-  t = 0 tot t = 25
 **[5] Wanneer is het evenwichtsmoment?**
-  Bij t = 25
 **[6] Uit welke variabele uit de vergelijking kunnen we dat aflezen?**
-  dY(?)
+
 
 ## 2.0 Programmeer opdracht
 ``` {r 2.0}
