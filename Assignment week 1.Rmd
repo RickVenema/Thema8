@@ -23,6 +23,47 @@ monofont: NotoMono-Regular.ttf
 Voor het model zou de "rate of decay of existing transcripts" geprogrammeerd moeten worden.
   
 **[2] Zoek bronnen op internet die uitleggen waar de formule dR/dt = -rR + m vandaan komt.**
-
+ Perez-Ortin J.E. Medina D.A. Chavez S. Moreno J. What do you mean by transcription rate?: the conceptual difference between nascent transcription rate and mRNA synthesis rate is essential for the proper understanding of transcriptomic analyses BioEssays  2013
+  
 **[3] Teken het biologisch model en leg de vertaling naar de formule uit.**
+
 **[4] Wat is de return waarde van de model functie in R? Waarom return je die en niet R zelf?**
+
+
+## 2.0 Programmeeropdracht
+```{r }
+library(deSolve)
+
+parameters <- c(r = 0, m = 0) 
+parameters_increase <- c(r = 1, m = 125)#R=10
+parameters_decrease <- c(r = 1, m = 75)
+
+
+volume <- function(t, y, parms){
+  with(as.list(c(parms)), {
+      dY <- -r * y + m
+      return(list(c(dY)))
+    }
+  )
+}
+
+#initial state
+state <- c(R = 100)
+
+#define time sequence you want to run the model
+times <- seq(0, 6,  by = 0.001)
+
+# run simulation using continuous approach
+out  <- ode(times = times, y = state,   parms = parameters, func = volume, method = "euler")
+out_increase  <- ode(times = times, y = state,   parms = parameters_increase, func = volume, method = "euler")
+out_decrease  <- ode(times = times, y = state,   parms = parameters_decrease, func = volume, method = "euler")
+#Print de uitkomst
+head(out)
+
+#plot de uitkomst
+plot(out, out_increase, out_decrease)
+``` 
+
+
+
+
