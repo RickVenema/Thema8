@@ -20,7 +20,7 @@ monofont: NotoMono-Regular.ttf
 ## 1.0 opdracht
 
 **[1] Welke parameters moet je programmeren?**
-Voor het model zou de "rate of decay of existing transcripts" geprogrammeerd moeten worden.
+Voor het model zou de "rate of decay of existing transcripts" geprogrammeerd moeten worden en de .
   
 **[2] Zoek bronnen op internet die uitleggen waar de formule dR/dt = -rR + m vandaan komt.**
 The conceptual difference between nascent transcription rate and mRNA synthesis
