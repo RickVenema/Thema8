@@ -23,7 +23,7 @@ library(deSolve)
 # }
 
 
-parameters <- c(kd_Rm = 0.612, ks_Rm = 2.90, ks_r = 3.22, kd_R = 0.0572, D=100, k_on= 0.00329, IC50_Rm = 26.2,
+parameters <- c(kd_Rm = 0.612, ks_Rm = 2.90, ks_r = 3.22, kd_R = 0.0572, D=53.409, k_on= 0.00329, IC50_Rm = 26.2,
                 k_t = 0.63, k_re = 0.57, Rf = 0.49) 
 
 
