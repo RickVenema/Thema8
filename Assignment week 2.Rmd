@@ -1,0 +1,25 @@
+---
+title: "Assignment week 2"
+author: "Bas Kasemir & Rick Venema"
+date: "5/8/2018"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Introduction
+
+
+## Materials and Methods
+
+### The Model
+The model gives the expression of glucocorticoid receptors, where down-regulation occurs due to the presence of corticosterone. 
+
+
+
+## Attachements
+
+
