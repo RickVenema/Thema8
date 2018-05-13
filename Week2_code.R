@@ -37,6 +37,10 @@ times <- seq(0, 48,  by = 1)
 # Run simulation using continuous approach
 out  <- ode(times = times, y = state,   parms = parameters, func = volume, method = "euler")
 
+plot(out[,'mRNA.R'], type="l", xlab="timeunits (hours)", ylab="[mRNA]") 
+title(main="Concentration of mRNA in the cell", sub="Graph showing the concentration of mRNA in the cell during
+      a 48 hour time period",
+      cex.sub = 0.75, cex.main = 1.75)
 # Makes plots of the results of the model
 plot(out)
 
