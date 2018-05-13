@@ -18,8 +18,17 @@ knitr::opts_chunk$set(echo = TRUE)
 ### The Model
 The model gives the expression of glucocorticoid receptors, where down-regulation occurs due to the presence of corticosterone. 
 
+$$ \frac {dmRNA_{R}}{dt} = k_{s\_Rm}\ (1-\frac {DR(N)}{IC_{50\_Rm} +DR(N)}) - k_{d\_Rm} * mRNA_{R} $$
+$$\frac {dR}{dt} = k_{s\_R} * mRNA_{R} + R_{f} * k_{re} * DR(N) - k_{on} * D *R - k_{d\_R} * R   $$
+$$\ \frac {dDR}{dt} = k_{on} * D * R - k_{\tau} * DR $$
+$$\ \frac {dDRN(N)}{dt} = k_{\tau} *DR - k_{re} *DR(N)  $$
 
+
+
+
+
+## Results
 
 ## Attachements
-
+HIER MOET DE CODE KOMEN TE STAAN
 
