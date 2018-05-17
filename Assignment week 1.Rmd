@@ -20,14 +20,31 @@ monofont: NotoMono-Regular.ttf
 ## 1.0 opdracht
 
 **[1] Welke parameters moet je programmeren?**
-Voor het model zou de "rate of decay of existing transcripts" geprogrammeerd moeten worden.
+Voor het model zou de "rate of decay of existing transcripts" geprogrammeerd moeten worden en de .
   
 **[2] Zoek bronnen op internet die uitleggen waar de formule dR/dt = -rR + m vandaan komt.**
+The conceptual difference between nascent transcription rate and mRNA synthesis
+rate is essential for the proper understanding of transcriptomic analyses by 
+Jose. Perez-Ortin 
+  
+The [mRNA] is determined by both the synthesis (SR)
+and the degradation (DR) rates. mRNA
+synthesis is considered to be indepen-
+dent of its concentration, whereas decay
+is assumed to follow first-order kinetics
+with rate constant kd
+
 
 **[3] Teken het biologisch model en leg de vertaling naar de formule uit.**
-image: ![](./Biological-Model-RNA-Decay.png)
-**[4] Wat is de return waarde van de model functie in R? Waarom return je die en niet R zelf?**
+```{r, echo=FALSE}
+knitr::include_graphics("./Biological-Model-RNA-Decay.png")
+# image: ![](./Biological-Model-RNA-Decay.png)
+```
 
+**[4] Wat is de return waarde van de model functie in R? Waarom return je die en niet R zelf?**
+Dit is dR/dt het verschil in number of transcripts over de tijd. R geeft alleen de totale hoeveelheid weer. Hetgeen niet
+veel inzicht geeft over het verschil in mRNA.
+  
 ## 2.0 programmeeropdracht
 ``` {r BIOMODULE}
 library(deSolve)
@@ -54,6 +71,8 @@ out  <- ode(times = times, y = state,   parms = parameters, func = volume, metho
 out_increase  <- ode(times = times, y = state,   parms = parameters_increase, func = volume, method = "euler")
 out_decrease  <- ode(times = times, y = state,   parms = parameters_decrease, func = volume, method = "euler")
 head(out)
-plot(out, out_increase, out_decrease)
+plot(out, out_increase, out_decrease, xlab = "timepoints", ylab = "number of mRNA transcripts", 
+     main = "Amount of mRNA transcripts over time")
+
 
 ``` 
