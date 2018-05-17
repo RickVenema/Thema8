@@ -9,6 +9,7 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
 ```
 
 
@@ -27,9 +28,13 @@ The model gives the expression of glucocorticoid receptors, where down-regulatio
 ## Functions
 
 $$ \frac {dmRNA_{R}}{dt} = k_{s\_Rm}\ \biggl(1-\frac {DR(N)}{IC_{50\_Rm} +DR(N)}\biggr) - k_{d\_Rm} * mRNA_{R} $$
+
 $$\frac {dR}{dt} = k_{s\_R} * mRNA_{R} + R_{f} * k_{re} * DR(N) - k_{on} * D *R - k_{d\_R} * R   $$
+
 $$\ \frac {dDR}{dt} = k_{on} * D * R - k_{\tau} * DR $$
+
 $$\ \frac {dDRN(N)}{dt} = k_{\tau} *DR - k_{re} *DR(N)  $$
+
 
 ## Table of parameters and startingvalues
 
@@ -79,14 +84,38 @@ times <- seq(0, 48,  by = 1)
 # Run simulation using continuous approach
 out  <- ode(times = times, y = state,   parms = parameters, func = volume, method = "euler")
 
-plot(out[,'mRNA.R'], type="l", xlab="timeunits (hours)", ylab="[mRNA]") 
-title(main="Concentration of mRNA in the cell", sub="Graph showing the concentration of mRNA in the cell during
-      a 48 hour time period",
-      cex.sub = 0.75, cex.main = 1.75, outer = FALSE)
-
 
 
 ```
+
+
+
+```{r plotR (a), echo=FALSE, fig.cap="Graph showing the concentration of receptors in the cell during a 48 hour time period"}
+plot(out[,'R'], type="l", xlab="timeunits (hours)", ylab="[R]", main="Concentration of receptors in the cell")
+```
+In this graph the concentration of receptors in the cell are shown. This graph is a declining graph meaning that the concentration of the receptors decreases. This is caused by 
+\newpage
+
+```{r plot MPL (b), echo=FALSE, fig.cap="Graph showing the concentration of the MPL-receptor complex in the cell duringa 48 hour time period"}
+plot(out[, 'DR'], type="l", xlab="timeunits (hours)", ylab="[DR]")
+title(main="Concentration of MPL-receptor complex in the cell")
+```
+
+\newpage
+
+```{r plot activated MPL (c), echo=FALSE, fig.cap = "Graph showing the concentration of the activated MPL-receptor complex in the nucleus during a 48 hour time period"}
+plot(out[, 'DR_N'], type="l", xlab="timeunits (hours)", ylab="[DR(N)]")
+title(main="Concentration of activated MPL-receptor complex \n in the nucleus ")
+```
+
+\newpage
+
+```{r plot mRNA (d), echo=FALSE, fig.cap= "Graph showing the concentration of the free receptor mRNA in the cell during a 48 hour time period"}
+plot(out[,'mRNA.R'], type="l", xlab="timeunits (hours)", ylab="[mRNA]")
+title(main="Concentration of the free receptor mRNA in the cell")
+```
+
+\newpage
 
 # Disussion
 
