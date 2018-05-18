@@ -15,8 +15,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Introduction
 Corticosteroids are adrenal cortex hormones. There are two groups where the corticoteroids can be divided in: Glucocorticoids and Mineralocorticoids. The 
-corticosteroids are used in the treatmens against several diseases related to skin and  allergies.
-Glucocorticoids cross the cell membrame and are roaming in the cytoplasm. They will bind eventually to a GR (glucocorticoid receptors). When these two complexes are binded by a ligand binding. Next, the GR complex gets activated by binding  and moves towards the nucleus.
+corticosteroids are used in the treatments against several diseases related to skin and  allergies because they act on for example the nasel passage epithelial cells and on the T Lymfocytes.
+The cell membrame of these cells is composed of glucocorticoid dissolving lipids. The glucocorticoid crosses the cell membrame and is roaming in the cytoplasm. It will bind eventually to a GR (glucocorticoid receptor). When these two complexes are binded together by a ligand binding, the GR complex gets activated by binding to AP-1. This inhibits the response to chemical messengers like inflammatory cytokines. The complex could also moves towards the nucleus. There the complex will bind to glucocorticoid response elements on the DNA and thereby control protein production. It deregulates pro-inflammatory cytokine productions and up-regulates anti inflammatory protein production.
 
 # Materials and Methods
 
