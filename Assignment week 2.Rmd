@@ -1,7 +1,7 @@
 ---
 title: "Assignment week 2"
 author: "Bas Kasemir & Rick Venema"
-date: "13/5/2018"
+date: "`r Sys.Date()`"
 output: 
   pdf_document:
     toc: True
@@ -9,7 +9,6 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-
 ```
 
 
@@ -18,12 +17,11 @@ Corticosteroids are adrenal cortex hormones. There are two groups where the cort
 corticosteroids are used in the treatments against several diseases related to skin and  allergies because they act on for example the nasel passage epithelial cells and on the T Lymfocytes.
 The cell membrame of these cells is composed of glucocorticoid dissolving lipids. The glucocorticoid crosses the cell membrame and is roaming in the cytoplasm. It will bind eventually to a GR (glucocorticoid receptor). When these two complexes are binded together by a ligand binding, the GR complex gets activated by binding to AP-1. This inhibits the response to chemical messengers like inflammatory cytokines. The complex could also moves towards the nucleus. There the complex will bind to glucocorticoid response elements on the DNA and thereby control protein production. It deregulates pro-inflammatory cytokine productions and up-regulates anti inflammatory protein production.
 
-# Materials and Methods
 
-## The Model
+# The Model
+
+## About the model
 The model gives the expression of glucocorticoid receptors, where down-regulation occurs due to the presence of corticosterone. 
-
-## FLOW DIAGRAM
 
 ## Functions
 
@@ -36,13 +34,11 @@ $$\ \frac {dDR}{dt} = k_{on} * D * R - k_{\tau} * DR $$
 $$\ \frac {dDRN(N)}{dt} = k_{\tau} *DR - k_{re} *DR(N)  $$
 
 
-## Table of parameters and startingvalues
-
-## Wat er gedaan is
 
 
-
+  
 # Results
+
 ```{r model, echo= F}
 
 # Rick Venema
@@ -59,7 +55,8 @@ library(deSolve)
 #############
 
 # Define the parameters
-parameters <- c(kd_Rm = 0.612, ks_Rm = 2.90, ks_r = 3.22, kd_R = 0.0572, D=53.409, k_on= 0.00329, IC50_Rm = 26.2,
+parameters <- c(kd_Rm = 0.612, ks_Rm = 2.90, ks_r = 3.22, 
+                kd_R = 0.0572, D=53.409, k_on= 0.00329, IC50_Rm = 26.2,
                 k_t = 0.63, k_re = 0.57, Rf = 0.49) 
 
 
@@ -83,43 +80,93 @@ times <- seq(0, 48,  by = 1)
 
 # Run simulation using continuous approach
 out  <- ode(times = times, y = state,   parms = parameters, func = volume, method = "euler")
-
-
-
-```
-
-
-
-```{r plotR (a), echo=FALSE, fig.cap="Graph showing the concentration of receptors in the cell during a 48 hour time period"}
-plot(out[,'R'], type="l", xlab="timeunits (hours)", ylab="[R]", main="Concentration of receptors in the cell")
-```
-In this graph the concentration of receptors in the cell are shown. This graph is a declining graph meaning that the concentration of the receptors decreases. This is caused by 
-\newpage
-
-```{r plot MPL (b), echo=FALSE, fig.cap="Graph showing the concentration of the MPL-receptor complex in the cell duringa 48 hour time period"}
-plot(out[, 'DR'], type="l", xlab="timeunits (hours)", ylab="[DR]")
-title(main="Concentration of MPL-receptor complex in the cell")
+out <- as.data.frame(out)
 ```
 
 \newpage
 
-```{r plot activated MPL (c), echo=FALSE, fig.cap = "Graph showing the concentration of the activated MPL-receptor complex in the nucleus during a 48 hour time period"}
-plot(out[, 'DR_N'], type="l", xlab="timeunits (hours)", ylab="[DR(N)]")
-title(main="Concentration of activated MPL-receptor complex \n in the nucleus ")
+```{r plots, echo=F, fig.cap="Graphs showing the concentration of receptors in the cell during a 48 hour time period"}
+par(mfrow = c(2, 2))
+
+plot(out$time,out$mRNA.R,ylim = c(0,5), xlab="Time",
+     ylab="receptor mRNA",type="l",lwd=2,
+     sub="(a)",
+     main = "Concentration of the receptor mRNA in the cell",
+     cex.main=0.7)
+
+plot(out$time,out$R, ylim = c(0,500), xlab="Time",
+     ylab="free receptor density",type="l",lwd=2,
+     sub="(b)",
+     main = "Concentration of free receptors in the cell",
+     cex.main = 0.7)
+
+plot(out$time,out$DR, ylim = c(0,75), xlab="Time",ylab="drug-receptor complex",type="l",lwd=2,
+     sub="(c)",
+     main="Concentration of MPL-receptor complex in the cell",
+     cex.main=0.7)
+
+plot(out$time,out$DR_N, ylim = c(0,75), xlab="Time",ylab="activated receptor complex",type="l",lwd=2,
+     sub="(d)",
+     main = "Concentration of activated MPL-receptor complex \n in the nucleus",
+     cex.main=0.7)
+
+```
+ 
+In figure 1a, the concentration of receptor mRNA in the cell is shown. This graph is a declining graph meaning that the concentration of the receptors decreases. This is caused by the activation of these receptors. 
+And after a while the concentration increases, meaning that the concentration of receptor mRNA increases until it reaches an equilibrium. This increase is due to the loss of activated receptor in the nucleus.
+
+As shown in figure 1b, the concentration of free receptors decreases in the cell, this is because almost all the glucocorticoid receptor binds with glucocorticoid that enters the cell. Eventually this graph reaches it 
+equilibrium nearing zero. This is because of the down-regulation of their own receptors. 
+
+Figure 1c, and figure 1d have the same course, this is because they have a correlation. Figure 1c shows the drug-receptor complex in the cell itself and figure 1d shows the activated receptor complex. This last complex
+moves to the nucleus of the cell, meaning that the graph in figure 1d has a slight move to the right. This is because it takes some time for an activated receptor complex to move to the nucleus of the cell. 
+
+
+# Bibliografie
+1. Meijsing, Sebastiaan H. et al. “The Ligand Binding Domain Controls Glucocorticoid Receptor Dynamics Independent of Ligand Release .” Molecular and Cellular Biology 27.7 (2007): 2442–2451. PMC. Web. 18 May 2018.
+
+# Attachments
+```{r model code attachment, eval=FALSE}
+
+# Rick Venema
+# 368044
+# k.f.venema@st.hanze.nl
+
+########
+# Libs #
+########
+library(deSolve)
+
+#############
+# functions #
+#############
+
+# Define the parameters
+parameters <- c(kd_Rm = 0.612, ks_Rm = 2.90, ks_r = 3.22, 
+                kd_R = 0.0572, D=53.409, k_on= 0.00329, IC50_Rm = 26.2,
+                k_t = 0.63, k_re = 0.57, Rf = 0.49) 
+
+
+# Define the model function
+volume <- function(t, y, parms){
+  with(as.list(c(y, parms)), {
+    dmRNA.R_dt <- ks_Rm * (1- (DR_N/ (IC50_Rm + DR_N)))- kd_Rm * mRNA.R 
+    dR_dt <- ks_r *  mRNA.R + Rf * k_re * DR_N - k_on * D * R - kd_R * R
+    dDR_dt <- k_on * D * R -k_t * DR
+    dDR_N_dt <- k_t * DR - k_re* DR_N
+    return(list(c(dmRNA.R_dt, dR_dt, dDR_N_dt, dDR_dt)))
+  }
+  )
+}
+
+# Define the state
+state <- c(mRNA.R = 4.74, R = 267, DR_N = 0, DR = 0)
+
+# Define time sequence you want to run the model
+times <- seq(0, 48,  by = 1)
+
+# Run simulation using continuous approach
+out  <- ode(times = times, y = state,   parms = parameters, func = volume, method = "euler")
 ```
 
-\newpage
-
-```{r plot mRNA (d), echo=FALSE, fig.cap= "Graph showing the concentration of the free receptor mRNA in the cell during a 48 hour time period"}
-plot(out[,'mRNA.R'], type="l", xlab="timeunits (hours)", ylab="[mRNA]")
-title(main="Concentration of the free receptor mRNA in the cell")
-```
-
-\newpage
-
-# Disussion
-
-
-# Attachements
-HIER MOET DE CODE KOMEN TE STAAN
 
