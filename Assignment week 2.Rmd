@@ -14,14 +14,14 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Introduction
 Corticosteroids are adrenal cortex hormones. There are two groups where the corticoteroids can be divided in: Glucocorticoids and Mineralocorticoids. The 
-corticosteroids are used in the treatments against several diseases related to skin and  allergies because they act on for example the nasel passage epithelial cells and on the T Lymfocytes.
-The cell membrame of these cells is composed of glucocorticoid dissolving lipids. The glucocorticoid crosses the cell membrame and is roaming in the cytoplasm. It will bind eventually to a GR (glucocorticoid receptor). When these two complexes are binded together by a ligand binding, the GR complex gets activated by binding to AP-1. This inhibits the response to chemical messengers like inflammatory cytokines. The complex could also moves towards the nucleus. There the complex will bind to glucocorticoid response elements on the DNA and thereby control protein production. It deregulates pro-inflammatory cytokine productions and up-regulates anti inflammatory protein production.
+corticosteroids are used in the treatment against several diseases related to skin and allergies because they act on for example the nasel passage epithelial cells and on the T Lymfocytes.
+The cell membrane of these cells is composed of glucocorticoid dissolving lipids. The glucocorticoid crosses the cell membrane and is roaming in the cytoplasm. It will bind eventually to a GR (glucocorticoid receptor). When these two complexes are binded together by a ligand binding, the GR complex gets activated by binding to AP-1. This inhibits the response to chemical messengers like inflammatory cytokines. The complex could also moves towards the nucleus. There the complex will bind to glucocorticoid response elements on the DNA and thereby control protein production. It deregulates pro-inflammatory cytokine productions and up-regulates anti inflammatory protein production.
 
 
 # The Model
 
 ## About the model
-The model gives the expression of glucocorticoid receptors, where down-regulation occurs due to the presence of corticosterone. The drug contqains the hormone corticosterone. These hormones are presented to the cell, go inside the cell and eventually bind to the glucocorticoid receptor in the cells DNA and reduce the chance of an inflammatory reaction.
+The model gives the expression of glucocorticoid receptors, where down-regulation occurs due to the presence of corticosterone. The drug contains the hormone corticosterone. These hormones are presented to the cell, go inside the cell and eventually bind to the glucocorticoid receptor in the cells DNA and reduce the chance of an inflammatory reaction.
 MDL is the drug. mRNAR is the receptor. 
 The greater the D concentration, the more DR(N) there wil be. This will lower ks_RM because less will be transcribed, because the complex has bonded to the glucocorticoid in the DNA. However, kd_Rm will get greater because the concentration of GR mRNA will get bigger and these two will stay in balance.
 
