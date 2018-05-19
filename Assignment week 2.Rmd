@@ -35,16 +35,14 @@ $$\ \frac {dDR}{dt} = k_{on} * D * R - k_{\tau} * DR $$
 
 $$\ \frac {dDRN(N)}{dt} = k_{\tau} *DR - k_{re} *DR(N)  $$
 
-
-
-
+\newpage
   
 # Results
 
 ```{r model, echo= F}
 
-# Rick Venema, Bas Kasemir
-# 368044, 367248
+# Rick Venema
+# 368044
 # k.f.venema@st.hanze.nl
 
 ########
@@ -85,7 +83,7 @@ out  <- ode(times = times, y = state,   parms = parameters, func = volume, metho
 out <- as.data.frame(out)
 ```
 
-\newpage
+
 
 ```{r plots, echo=F, fig.cap="Graphs showing the concentration of receptors in the cell during a 48 hour time period"}
 par(mfrow = c(2, 2))
@@ -125,13 +123,13 @@ moves to the nucleus of the cell, meaning that the graph in figure 1d has a slig
 
 
 # Bibliografie
-1. Meijsing, Sebastiaan H. et al. “The Ligand Binding Domain Controls Glucocorticoid Receptor Dynamics Independent of Ligand Release .” Molecular and Cellular Biology 27.7 (2007): 2442–2451. PMC. Web. 18 May 2018.
+1. Meijsing, Sebastiaan H. et al. The Ligand Binding Domain Controls Glucocorticoid Receptor Dynamics Independent of Ligand Release Molecular and Cellular Biology 27.7 (2007): 2442 2451. PMC. Web. 18 May 2018.
 
 # Attachments
 ```{r model code attachment, eval=FALSE}
 
-# Rick Venema, Bas Kasemir
-# 368044, 367248
+# Rick Venema
+# 368044
 # k.f.venema@st.hanze.nl
 
 ########
