@@ -2,7 +2,7 @@
 title: "Assignment week 3"
 author: "Bas Kasemir & Rick Venema"
 date: "`r Sys.Date()`"
-output: 
+output:
   pdf_document:
     toc: True
 ---
@@ -13,7 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 # Introduction
-Corticosteroids are adrenal cortex hormones. There are two groups where the corticoteroids can be divided in: Glucocorticoids and Mineralocorticoids. The 
+Corticosteroids are adrenal cortex hormones. There are two groups where the corticoteroids can be divided in: Glucocorticoids and Mineralocorticoids. The
 corticosteroids are used in the treatments against several diseases related to skin and  allergies because they act on for example the nasel passage epithelial cells and on the T Lymfocytes.
 The cell membrame of these cells is composed of glucocorticoid dissolving lipids. The glucocorticoid crosses the cell membrame and is roaming in the cytoplasm. It will bind eventually to a GR (glucocorticoid receptor). When these two complexes are binded together by a ligand binding, the GR complex gets activated by binding to AP-1. This inhibits the response to chemical messengers like inflammatory cytokines. The complex could also moves towards the nucleus. There the complex will bind to glucocorticoid response elements on the DNA and thereby control protein production. It deregulates pro-inflammatory cytokine productions and up-regulates anti inflammatory protein production.
 
@@ -22,22 +22,22 @@ The cell membrame of these cells is composed of glucocorticoid dissolving lipids
 
 ## About the model
 The model gives the expression of glucocorticoid receptors, where down-regulation occurs due to the presence of corticosterone. The drug contains the hormone corticosterone. These hormones are presented to the cell, go inside the cell and eventually bind to the glucocorticoid receptor in the cells DNA and reduce the chance of an inflammatory reaction.
-MDL is the drug. mRNAR is the receptor. 
+MDL is the drug. mRNAR is the receptor.
 The greater the D concentration, the more DR(N) there wil be. This will lower ks_RM because less will be transcribed, because the complex has bonded to the glucocorticoid in the DNA. However, kd_Rm will get greater because the concentration of GR mRNA will get bigger and these two will stay in balance.
 
 ## Functions
 
 $$ \frac {dmRNA_{R}}{dt} = k_{s\_Rm}\ \biggl(1-\frac {DR(N)}{IC_{50\_Rm} +DR(N)}\biggr) - k_{d\_Rm} * mRNA_{R} $$
 
-$$\frac {dR}{dt} = k_{s\_R} * mRNA_{R} + R_{f} * k_{re} * DR(N) - k_{on} * D *R - k_{d\_R} * R   $$
+$$\frac {dR}{dt} = k_{s\_R} * mRNA_{R} + R_{f} * k_{re} * DR(N) - k_{on} * D * R - k_{d\_R} * R   $$
 
 $$\ \frac {dDR}{dt} = k_{on} * D * R - k_{\tau} * DR $$
 
-$$\ \frac {dDRN(N)}{dt} = k_{\tau} *DR - k_{re} *DR(N)  $$
+$$\ \frac {dDRN(N)}{dt} = k_{\tau} * DR - k_{re} * DR(N)  $$
 
 
 ## Validation of the model
-To validate the model data from experiments is used to assess the model. 
+To validate the model data from experiments is used to assess the model.
 
 \newpage
 # Results
@@ -60,15 +60,15 @@ library(deSolve)
 #############
 
 # Define the parameters
-parameters <- c(kd_Rm = 0.612, ks_Rm = 2.90, ks_r = 3.22, 
+parameters <- c(kd_Rm = 0.612, ks_Rm = 2.90, ks_r = 3.22,
                 kd_R = 0.0572, D=53.409, k_on= 0.00329, IC50_Rm = 26.2,
-                k_t = 0.63, k_re = 0.57, Rf = 0.49) 
+                k_t = 0.63, k_re = 0.57, Rf = 0.49)
 
 
 # Define the model function
 volume <- function(t, y, parms){
   with(as.list(c(y, parms)), {
-    dmRNA.R_dt <- ks_Rm * (1- (DR_N/ (IC50_Rm + DR_N)))- kd_Rm * mRNA.R 
+    dmRNA.R_dt <- ks_Rm * (1- (DR_N/ (IC50_Rm + DR_N)))- kd_Rm * mRNA.R
     dR_dt <- ks_r *  mRNA.R + Rf * k_re * DR_N - k_on * D * R - kd_R * R
     dDR_dt <- k_on * D * R -k_t * DR
     dDR_N_dt <- k_t * DR - k_re* DR_N
@@ -117,15 +117,15 @@ plot(out$time,out$DR_N, ylim = c(0,75), xlab="Time",ylab="activated receptor com
      cex.main=0.7)
 
 ```
- 
-In figure 1a, the concentration of receptor mRNA in the cell is shown. This graph is a declining graph meaning that the concentration of the receptors decreases. This is caused by the activation of these receptors. 
+
+In figure 1a, the concentration of receptor mRNA in the cell is shown. This graph is a declining graph meaning that the concentration of the receptors decreases. This is caused by the activation of these receptors.
 And after a while the concentration increases, meaning that the concentration of receptor mRNA increases until it reaches an equilibrium. This increase is due to the loss of activated receptor in the nucleus.
 
-As shown in figure 1b, the concentration of free receptors decreases in the cell, this is because almost all the glucocorticoid receptor binds with glucocorticoid that enters the cell. Eventually this graph reaches it 
-equilibrium nearing zero. This is because of the down-regulation of their own receptors. 
+As shown in figure 1b, the concentration of free receptors decreases in the cell, this is because almost all the glucocorticoid receptor binds with glucocorticoid that enters the cell. Eventually this graph reaches it
+equilibrium nearing zero. This is because of the down-regulation of their own receptors.
 
 Figure 1c, and figure 1d have the same course, this is because they have a correlation. Figure 1c shows the drug-receptor complex in the cell itself and figure 1d shows the activated receptor complex. This last complex
-moves to the nucleus of the cell, meaning that the graph in figure 1d has a slight move to the right. This is because it takes some time for an activated receptor complex to move to the nucleus of the cell. 
+moves to the nucleus of the cell, meaning that the graph in figure 1d has a slight move to the right. This is because it takes some time for an activated receptor complex to move to the nucleus of the cell.
 
 
 ## Model validation
@@ -137,29 +137,44 @@ moves to the nucleus of the cell, meaning that the graph in figure 1d has a slig
 ############
 # The Data #
 ############
+# Read data from CSV file
 data <- read.csv("MPL.csv", na.strings = "NA")
+
+# Store trimmed data for dose 0.1 and dose 0.3
+data_0.1 <- data[data$dose == 0.1,]
+data_0.3 <- data[data$dose == 0.3,]
+
+# Calculate the median of the cocentration MPL for dose 0.1 and dose 0.3
 median_MPL_0.3 <- median(data$MPL_conc[data$dose==0.3], na.rm = T)
 median_MPL_0.1 <- median(data$MPL_conc[data$dose==0.1], na.rm = T)
 
+# Store trimmed data for dose 0.1 and dose 0.3
 D_0.3 <- median_MPL_0.3*1000/374.471
 D_0.1 <- median_MPL_0.1*1000/374.471
 
 ####
 # Model with parameters responding with experiment
 #
-parameters <- c(kd_Rm = 0.612, ks_Rm = 2.90, ks_r = 3.22, 
-                kd_R = 0.0572, D=, k_on= 0.00329, IC50_Rm = 26.2,
-                k_t = 0.63, k_re = 0.57, Rf = 0.49) 
-state <- c(mRNA.R = 4.74, R = 267, DR_N = 0, DR = 0)
+parameters0.3 <- c(kd_Rm = 0.612, ks_Rm = 2.90, ks_r = 3.22,
+                kd_R = 0.0572, D= D_0.3, k_on= 0.00329, IC50_Rm = 26.2,
+                k_t = 0.63, k_re = 0.57, Rf = 0.49)
 
-times <- seq(0, 175,  by = 1)
+parameters0.1 <- c(kd_Rm = 0.612, ks_Rm = 2.90, ks_r = 3.22,
+                kd_R = 0.0572, D= D_0.1, k_on= 0.00329, IC50_Rm = 26.2,
+                k_t = 0.63, k_re = 0.57, Rf = 0.49)
+
+state0.3 <- c(mRNA.R = 4.74, R = 267, DR_N = 0, DR = 0)
+state0.1 <- c(mRNA.R = 4.74, R = 267, DR_N = 0, DR = 0)
+
+times0.3 <- seq(0, 175,  by = 1)
+times0.1 <- seq(0, 175,  by = 1)
 
 # Run simulation using continuous approach
-out  <- ode(times = times, y = state,   parms = parameters, func = volume, method = "euler")
-out <- as.data.frame(out)
+out0.3  <- ode(times = times, y = state0.3,   parms = parameters0.3, func = volume, method = "euler")
+out0.3 <- as.data.frame(out0.3)
 
-
-
+out0.1  <- ode(times = times, y = state0.1,   parms = parameters0.1, func = volume, method = "euler")
+out0.1 <- as.data.frame(out0.1)
 
 medians <- aggregate(data[,c("MPL_conc","mRNA","Free_receptor")],list(data$dose,data$time), median, na.rm=T)
 names(medians)[1:2] <- c("dose","time")
@@ -168,9 +183,20 @@ head(medians)
 dose_0.3 <- medians[medians$dose==0.3,]
 dose_0.1 <- medians[medians$dose==0.1,]
 
+# temp code
+head(dose_0.3)
+
 plot(dose_0.3$time, dose_0.3$Free_receptor, ylim=c(0,500), col="red", type="l")
-points(data$time,data$Free_receptor)
+points(data_0.3$time,data_0.3$Free_receptor)
 points(out$time,out$R, type="l")
+
+plot(dose_0.1$time, dose_0.1$Free_receptor, ylim=c(0,500), col="red", type="l", xlim=c(-1, 175))
+points(data_0.1$time,data_0.1$Free_receptor)
+points(out$time,out$R, type="l")
+
+plot(dose_0.3$time, dose_0.3$mRNA, col="red", type="l")
+points(data_0.3$time,data_0.3$mRNA)
+points(out$time,out$mRNA.R, type="l")
 ```
 
 
@@ -178,6 +204,7 @@ points(out$time,out$R, type="l")
 1. Meijsing, Sebastiaan H. et al. The Ligand Binding Domain Controls Glucocorticoid Receptor Dynamics Independent of Ligand Release Molecular and Cellular Biology 27.7 (2007): 2442 2451. PMC. Web. 18 May 2018.
 
 # Attachments
+## Model
 ```{r model code attachment, eval=FALSE}
 # Rick Venema
 # 368044
@@ -193,15 +220,15 @@ library(deSolve)
 #############
 
 # Define the parameters
-parameters <- c(kd_Rm = 0.612, ks_Rm = 2.90, ks_r = 3.22, 
+parameters <- c(kd_Rm = 0.612, ks_Rm = 2.90, ks_r = 3.22,
                 kd_R = 0.0572, D=53.409, k_on= 0.00329, IC50_Rm = 26.2,
-                k_t = 0.63, k_re = 0.57, Rf = 0.49) 
+                k_t = 0.63, k_re = 0.57, Rf = 0.49)
 
 
 # Define the model function
 volume <- function(t, y, parms){
   with(as.list(c(y, parms)), {
-    dmRNA.R_dt <- ks_Rm * (1- (DR_N/ (IC50_Rm + DR_N)))- kd_Rm * mRNA.R 
+    dmRNA.R_dt <- ks_Rm * (1- (DR_N/ (IC50_Rm + DR_N)))- kd_Rm * mRNA.R
     dR_dt <- ks_r *  mRNA.R + Rf * k_re * DR_N - k_on * D * R - kd_R * R
     dDR_dt <- k_on * D * R -k_t * DR
     dDR_N_dt <- k_t * DR - k_re* DR_N
@@ -219,5 +246,3 @@ times <- seq(0, 48,  by = 1)
 # Run simulation using continuous approach
 out  <- ode(times = times, y = state,   parms = parameters, func = volume, method = "euler")
 ```
-
-
