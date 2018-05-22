@@ -127,7 +127,6 @@ moves to the nucleus of the cell, meaning that the graph in figure 1d has a slig
 
 # Attachments
 ```{r model code attachment, eval=FALSE}
-
 # Rick Venema
 # 368044
 # k.f.venema@st.hanze.nl
