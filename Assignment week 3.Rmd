@@ -84,9 +84,8 @@ state <- c(mRNA.R = 4.74, R = 267, DR_N = 0, DR = 0)
 times <- seq(0, 48,  by = 1)
 
 # Run simulation using continuous approach
-out  <- ode(times = times, y = state,   parms = parameters, func = volume, method = "euler")
+out <- ode(times = times, y = state,   parms = parameters, func = volume, method = "euler")
 out <- as.data.frame(out)
-dim(out)
 ```
 
 
@@ -115,6 +114,8 @@ plot(out$time,out$DR_N, ylim = c(0,75), xlab="Time",ylab="activated receptor com
      sub="(d)",
      main = "Concentration of activated MPL-receptor complex \n in the nucleus",
      cex.main=0.7)
+
+
 
 ```
 
@@ -150,9 +151,8 @@ median_MPL_0.1 <- median(data$MPL_conc[data$dose==0.1], na.rm = T)
 
 # Store trimmed data for dose 0.1 and dose 0.3
 D_0.3 <- median_MPL_0.3*1000/374.471
-D_0.3
 D_0.1 <- median_MPL_0.1*1000/374.471
-D_0.1
+
 ####
 # Model with parameters responding with experiment
 #
@@ -167,8 +167,8 @@ parameters0.1 <- c(kd_Rm = 0.612, ks_Rm = 2.90, ks_r = 3.22,
 state0.3 <- c(mRNA.R = 4.74, R = 267, DR_N = 0, DR = 0)
 state0.1 <- c(mRNA.R = 4.74, R = 267, DR_N = 0, DR = 0)
 
-times0.3 <- seq(0, 175,  by = 1)
-times0.1 <- seq(0, 175,  by = 1)
+times <- seq(0, 175,  by = 1)
+
 
 # Run simulation using continuous approach
 out0.3  <- ode(times = times, y = state0.3,   parms = parameters0.3, func = volume, method = "euler")
@@ -179,30 +179,63 @@ out0.1 <- as.data.frame(out0.1)
 
 medians <- aggregate(data[,c("MPL_conc","mRNA","Free_receptor")],list(data$dose,data$time), median, na.rm=T)
 names(medians)[1:2] <- c("dose","time")
-head(medians)
 
 dose_0.3 <- medians[medians$dose==0.3,]
 dose_0.1 <- medians[medians$dose==0.1,]
 ```
 
-```{r plots validation, echo=F}
-# Plots of Free receptor
-plot(dose_0.3$time, dose_0.3$Free_receptor, ylim=c(0,500), col="red", type="l")
-points(data_0.3$time,data_0.3$Free_receptor)
-points(out$time,out$R, type="l")
+```{r plots validation, echo=F, fig.cap="Graphs showing the experiment data in combination with the model"}
+# Rick Venema
+# 368044
+# k.f.venema@st.hanze.nl
 
-plot(dose_0.1$time, dose_0.1$Free_receptor, ylim=c(0,500), col="red", type="l", xlim=c(-1, 175))
+# parameters to define the layout of the figure
+par(mfrow=c(3,2))
+
+# Plots of Free receptor
+plot(dose_0.3$time, dose_0.3$Free_receptor, ylim=c(0,500), col="red", type="l", xlim=c(-1, 175),
+     main="Concentration of Free receptor with dose 0.3",
+     sub = "(a)", xlab = "Timeunits", ylab = "Free receptor",
+     cex.main = 1)
+points(data_0.3$time,data_0.3$Free_receptor)
+points(out0.3$time,out0.3$R, type="l")
+
+plot(dose_0.1$time, dose_0.1$Free_receptor, ylim=c(0,500), col="red", type="l", xlim=c(-1, 175),
+     main="Concentration of Free receptor with dose 0.1", 
+     sub = "(b)", xlab = "Timeunits", ylab="Free receptor",
+     cex.main = 1)
 points(data_0.1$time,data_0.1$Free_receptor)
-points(out$time,out$R, type="l")
+points(out0.1$time,out0.1$R, type="l")
 
 # Plots of concentration mRNA
-plot(dose_0.3$time, dose_0.3$mRNA, col="red", type="l", xlim=c(-1, 175))
+plot(dose_0.3$time, dose_0.3$mRNA, col="red", type="l", xlim=c(-1, 175),
+     main = "Concentration of mRNA with dose 0.3",
+     sub = "(c)", xlab = "Timeunits", ylab = "mRNA",
+     cex.main = 1 )
 points(data_0.3$time,data_0.3$mRNA)
-points(out$time,out$mRNA.R, type="l")
+points(out0.3$time,out0.3$mRNA.R, type="l")
 
-plot(dose_0.1$time, dose_0.1$mRNA, col="red", type="l", xlim=c(-1, 175))
+plot(dose_0.1$time, dose_0.1$mRNA, col="red", type="l", xlim=c(-1, 175),
+     main="Concentration of mRNA with dose 0.1",
+     sub = "(d)", xlab = "Timeunits", ylab="mRNA",
+     cex.main = 1)
 points(data_0.1$time,data_0.1$mRNA)
-points(out$time,out$mRNA.R, type="l")
+points(out0.1$time,out0.1$mRNA.R, type="l")
+
+# Plots of concentration MPL
+plot(dose_0.3$time, dose_0.3$MPL_conc, col="red", type="l", ylim=c(0,250), xlim=c(-1, 175),
+     main = "Concentration of MPL with dose 0.3",
+     sub = "(e)", xlab = "Timeunits", ylab = "MPL",
+     cex.main = 1)
+points(data_0.3$time, data_0.3$MPL_conc)
+points(out0.3$time, out0.3$DR, type="l")
+
+plot(dose_0.1$time, dose_0.1$MPL_conc, col="red", type="l", ylim=c(0,250), xlim=c(-1, 175),
+     main = "Concentration of MPL with dose 0.1",
+     sub = "(f)", xlab = "Timeunits", ylab = "MPL",
+     cex.main = 1)
+points(data_0.1$time, data_0.1$MPL_conc)
+points(out0.1$time, out0.1$DR, type="l")
 ```
 
 
