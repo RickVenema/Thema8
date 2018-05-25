@@ -206,11 +206,11 @@ points(data_0.1$time,data_0.1$Free_receptor)
 points(out0.1$time,out0.1$R, type="l")
 ```
 
-In figure 2a and 2b the model is shown with the experimental data. With adding this data, the model can be
+In figure 2a and 2b the model is shown with the experimental data. By adding this data, the model can be
 validated. In these graphs, the model is represented as the black line, the medians are represented by the red
 line, and the black dots are representing the raw experimental data. As shown in the graph, the median line follows the 
 model line, exept for around 50 hours. On timepoint 50, there is a little bump in the line, this means that the
-average on that timepoint is a bit higher than expected from the model. Furthermore is there a clear difference
+average on that timepoint is a bit higher than expected from the model. Furthermore there is a clear difference
 in figure 2a the line gets a lower steady point than the model in figure 2b, this is due to the lowering of the dose. A higher dose results in a lower concentration of free receptor in the cell.
 
 ```{r plots validation mRNA, echo=F, fig.cap="The difference in concentration of mRNA by dose 0.1 and dose 0.3", fig.height=3.5, fig.pos='H'}
@@ -231,6 +231,7 @@ points(data_0.1$time,data_0.1$mRNA)
 points(out0.1$time,out0.1$mRNA.R, type="l")
 ```
 
+Figure 3 shows the difference in concentration of mRNA with dose 0.3 and dose 0.1, This difference is visable in the height of the steady state of the model. With a dose 0.3 the steady state is lower than the steady state of dose 0.1. This can be seen in figure 3a
 
 ```{r plots validation MPL, echo=F, fig.cap="LORUM IPSUM DOLAR SIT AMET", fig.height=3.5, fig.pos='H'}
 par(mfrow=c(1,2))
