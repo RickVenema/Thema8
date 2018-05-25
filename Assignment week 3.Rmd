@@ -231,9 +231,10 @@ points(data_0.1$time,data_0.1$mRNA)
 points(out0.1$time,out0.1$mRNA.R, type="l")
 ```
 
-Figure 3 shows the difference in concentration of mRNA with dose 0.3 and dose 0.1, This difference is visable in the height of the steady state of the model. With a dose 0.3 the steady state is lower than the steady state of dose 0.1. This can be seen in figure 3a
+Figure 3 shows the difference in concentration of mRNA with dose 0.3 and dose 0.1, This difference is visable in the height of the steady state of the model. With a dose 0.3 the steady state is lower than the steady state of dose 0.1. This can be seen in figure 3a and figure 3b. After the model has entered the steady state, the 
+experimental data is not a straight steady state. The experimental data has a big fluctuation. 
 
-```{r plots validation MPL, echo=F, fig.cap="LORUM IPSUM DOLAR SIT AMET", fig.height=3.5, fig.pos='H'}
+```{r plots validation MPL, echo=F, fig.cap="Figure showing the difference in concentration of MPL with dose 0.3 and dose 0.1", fig.height=3.5, fig.pos='H'}
 par(mfrow=c(1,2))
 # Plots of concentration MPL
 plot(dose_0.3$time, dose_0.3$MPL_conc, col="red", type="l", ylim=c(0,150), xlim=c(-1, 175),
