@@ -4,11 +4,14 @@ author: "Bas Kasemir & Rick Venema"
 date: "`r Sys.Date()`"
 output:
   pdf_document:
-    toc: True
+    toc: yes
+header-includes:
+- \usepackage{float}
+- \usepackage{graphicx}
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, fig.pos='H')
 ```
 
 
@@ -39,10 +42,10 @@ $$\ \frac {dDRN(N)}{dt} = k_{\tau} * DR - k_{re} * DR(N)  $$
 ## Validation of the model
 To validate the model data from experiments is used to assess the model.
 
-\newpage
 # Results
 
 ## Model results
+
 
 ```{r model, echo= F}
 
@@ -89,7 +92,6 @@ out <- as.data.frame(out)
 ```
 
 
-
 ```{r plots, echo=F, fig.cap="Graphs showing the concentration of receptors in the cell during a 48 hour time period"}
 par(mfrow = c(2, 2))
 
@@ -128,8 +130,8 @@ equilibrium nearing zero. This is because of the down-regulation of their own re
 Figure 1c, and figure 1d have the same course, this is because they have a correlation. Figure 1c shows the drug-receptor complex in the cell itself and figure 1d shows the activated receptor complex. This last complex
 moves to the nucleus of the cell, meaning that the graph in figure 1d has a slight move to the right. This is because it takes some time for an activated receptor complex to move to the nucleus of the cell.
 
-
 ## Model validation
+
 ```{r model validation, echo = F}
 # Rick Venema
 # 368044
@@ -184,63 +186,67 @@ dose_0.3 <- medians[medians$dose==0.3,]
 dose_0.1 <- medians[medians$dose==0.1,]
 ```
 
-```{r plots validation, echo=F, fig.cap="Graphs showing the experiment data in combination with the model"}
-# Rick Venema
-# 368044
-# k.f.venema@st.hanze.nl
-
+```{r plots validation, echo=F, fig.cap="Graphs showing the experiment data in combination with the model", fig.height=3.5, fig.pos='H'}
 # parameters to define the layout of the figure
 par(mfrow=c(1,2))
 
 # Plots of Free receptor
 plot(dose_0.3$time, dose_0.3$Free_receptor, ylim=c(0,500), col="red", type="l", xlim=c(-1, 175),
-     main="Concentration of Free receptor with dose 0.3",
+     main="Concentration of Free receptor \n with dose 0.3",
      sub = "(a)", xlab = "Timeunits", ylab = "Free receptor",
      cex.main = 1)
 points(data_0.3$time,data_0.3$Free_receptor)
 points(out0.3$time,out0.3$R, type="l")
 
 plot(dose_0.1$time, dose_0.1$Free_receptor, ylim=c(0,500), col="red", type="l", xlim=c(-1, 175),
-     main="Concentration of Free receptor with dose 0.1", 
+     main="Concentration of Free receptor \n with dose 0.1", 
      sub = "(b)", xlab = "Timeunits", ylab="Free receptor",
      cex.main = 1)
 points(data_0.1$time,data_0.1$Free_receptor)
 points(out0.1$time,out0.1$R, type="l")
+```
 
+
+```{r plots validation mRNA, echo=F, fig.cap="The difference in concentration of mRNA by dose 0.1 and dose 0.3", fig.height=3.5, fig.pos='H'}
+par(mfrow=c(1,2))
 # Plots of concentration mRNA
 plot(dose_0.3$time, dose_0.3$mRNA, col="red", type="l", xlim=c(-1, 175),
      main = "Concentration of mRNA with dose 0.3",
-     sub = "(c)", xlab = "Timeunits", ylab = "mRNA",
+     sub = "(a)", xlab = "Timeunits", ylab = "mRNA",
      cex.main = 1 )
 points(data_0.3$time,data_0.3$mRNA)
 points(out0.3$time,out0.3$mRNA.R, type="l")
 
 plot(dose_0.1$time, dose_0.1$mRNA, col="red", type="l", xlim=c(-1, 175),
      main="Concentration of mRNA with dose 0.1",
-     sub = "(d)", xlab = "Timeunits", ylab="mRNA",
+     sub = "(b)", xlab = "Timeunits", ylab="mRNA",
      cex.main = 1)
 points(data_0.1$time,data_0.1$mRNA)
 points(out0.1$time,out0.1$mRNA.R, type="l")
+```
 
+
+```{r plots validation MPL, echo=F, fig.cap="LORUM IPSUM DOLAR SIT AMET", fig.height=3.5, fig.pos='H'}
+par(mfrow=c(1,2))
 # Plots of concentration MPL
-plot(dose_0.3$time, dose_0.3$MPL_conc, col="red", type="l", ylim=c(0,250), xlim=c(-1, 175),
+plot(dose_0.3$time, dose_0.3$MPL_conc, col="red", type="l", ylim=c(0,150), xlim=c(-1, 175),
      main = "Concentration of MPL with dose 0.3",
-     sub = "(e)", xlab = "Timeunits", ylab = "MPL",
+     sub = "(a)", xlab = "Timeunits", ylab = "MPL",
      cex.main = 1)
 points(data_0.3$time, data_0.3$MPL_conc)
 points(out0.3$time, out0.3$DR, type="l")
 
-plot(dose_0.1$time, dose_0.1$MPL_conc, col="red", type="l", ylim=c(0,250), xlim=c(-1, 175),
+plot(dose_0.1$time, dose_0.1$MPL_conc, col="red", type="l", ylim=c(0,150), xlim=c(-1, 175),
      main = "Concentration of MPL with dose 0.1",
-     sub = "(f)", xlab = "Timeunits", ylab = "MPL",
+     sub = "(b)", xlab = "Timeunits", ylab = "MPL",
      cex.main = 1)
 points(data_0.1$time, data_0.1$MPL_conc)
 points(out0.1$time, out0.1$DR, type="l")
 ```
 
-
 # Bibliografie
 1. Meijsing, Sebastiaan H. et al. The Ligand Binding Domain Controls Glucocorticoid Receptor Dynamics Independent of Ligand Release Molecular and Cellular Biology 27.7 (2007): 2442 2451. PMC. Web. 18 May 2018.
+2. Writing Your Thesis with R Markdown (5) - The Thesis Layout https://rosannavanhespenresearch.wordpress.com/2016/03/30/writing-your-thesis-with-r-markdown-5-the-thesis-layout/ 
 
 # Attachments
 ## Model
