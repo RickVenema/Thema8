@@ -190,7 +190,7 @@ dose_0.1 <- medians[medians$dose==0.1,]
 # k.f.venema@st.hanze.nl
 
 # parameters to define the layout of the figure
-par(mfrow=c(3,2))
+par(mfrow=c(1,2))
 
 # Plots of Free receptor
 plot(dose_0.3$time, dose_0.3$Free_receptor, ylim=c(0,500), col="red", type="l", xlim=c(-1, 175),
