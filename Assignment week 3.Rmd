@@ -285,9 +285,9 @@ points(out0.1$time, out0.1$DR, type="l")
 ########
 library(deSolve)
 
-#############
-# functions #
-#############
+###############
+## functions ##
+###############xx
 
 # Define the parameters
 parameters <- c(kd_Rm = 0.612, ks_Rm = 2.90, ks_r = 3.22,
@@ -317,6 +317,267 @@ times <- seq(0, 48,  by = 1)
 out  <- ode(times = times, y = state,   parms = parameters, func = volume, 
             method = "euler")
 ```
+
+
+
+## Assignment 2
+
+```{r assignment2}
+# Bas Kasemir
+# 367248
+# b.h.n.kasemir@st.hanze.nl
+
+
+
+
+# Define the new parameters
+parameters.mRNA <- c(kd_Rm = 0.612, ks_Rm = 2.90, ks_r = 3.22,
+                kd_R = 0.0572, D=53.409, k_on= 0.00329, IC50_Rm = 26.2,
+                k_t = 0.63, k_re = 0.57, Rf = 0.49)
+
+
+# Define the model function
+volume.mRNA <- function(t, y, parms){
+  with(as.list(c(y, parms)), {
+    dmRNA.R_dt <- ks_Rm * (1- (DR_N/ (IC50_Rm + DR_N)))- kd_Rm *mRNA.R
+    dR_dt <- ks_r *  mRNA.R + Rf * k_re * DR_N - k_on * R - kd_R * R
+    dDR_dt <- k_on * R -k_t * DR
+    dDR_N_dt <- k_t * DR - k_re* DR_N
+    return(list(c(dmRNA.R_dt, dR_dt, dDR_N_dt, dDR_dt)))
+  }
+  )
+}
+
+# Define the state
+state <- c(mRNA.R = 4.74, R = 267, DR_N = 0, DR = 0)
+
+# Define time sequence you want to run the model
+times <- seq(0, 48,  by = 1)
+
+# Run simulation using continuous approach
+out.mRNA  <- ode(times = times, y = state,   parms = parameters.mRNA, func = volume.mRNA, method = "euler")
+out.mRNA <- as.data.frame(out.mRNA)
+par(mfrow = c(2,2))
+plot(out.mRNA$time, out.mRNA$mRNA.R, type="l", xlab="Time", ylab="receptor mRNA", sub="(a)", main = "Concentration of the receptor\nmRNA in the cell")
+plot(out.mRNA$time, out.mRNA$R, type="l", xlab="Time", ylab="free receptor density", sub="(b)", main = "Concentration of free receptors\nin the cell")
+plot(out.mRNA$time, out.mRNA$DR, type="l", xlab="Time", ylab="drug-receptor complex", sub="(c)", main="Concentration of MPL-receptor\ncomplex in the cell")
+plot(out.mRNA$time, out.mRNA$DR_N, type="l", xlab="Time", ylab="activated receptor complex", sub="(d)", main = "Concentration of activated\nMPL-receptor complex \n in the nucleus")
+
+
+
+#######################
+# 3
+#######################
+
+parameters.k_on1 <- c(kd_Rm = 0.612, ks_Rm = 2.90, ks_r = 3.22,
+                kd_R = 0.0572, D=53.409, k_on= 0.00329/5, IC50_Rm = 26.2,
+                k_t = 0.63, k_re = 0.57, Rf = 0.49)
+
+# Run simulation using continuous approach
+out.k_on1  <- ode(times = times, y = state,   parms = parameters.k_on1, func = volume, method = "euler")
+
+out.k_on1 <- as.data.frame(out.k_on1)
+par(mfrow = c(2,2))
+plot(out.k_on1$time, out.k_on1$mRNA.R, type="l", xlab="Time", ylab="receptor mRNA", sub="(a)", main = "Concentration of the receptor\nmRNA in the cell")
+plot(out.k_on1$time, out.k_on1$R, type="l", xlab="Time", ylab="free receptor density", sub="(b)", main = "Concentration of free receptors\nin the cell")
+plot(out.k_on1$time, out.k_on1$DR, type="l", xlab="Time", ylab="drug-receptor complex", sub="(c)", main="Concentration of MPL-receptor\ncomplex in the cell")
+plot(out.k_on1$time, out.k_on1$DR_N, type="l", xlab="Time", ylab="activated receptor complex", sub="(d)", main = "Concentration of activated\nMPL-receptor complex \n in the nucleus")
+
+
+parameters.k_on2 <- c(kd_Rm = 0.612, ks_Rm = 2.90, ks_r = 3.22,
+                kd_R = 0.0572, D=53.409, k_on= 0.00329/2, IC50_Rm = 26.2,
+                k_t = 0.63, k_re = 0.57, Rf = 0.49)
+
+# Run simulation using continuous approach
+out.k_on2  <- ode(times = times, y = state,   parms = parameters.k_on2, func = volume, method = "euler")
+
+out.k_on2 <- as.data.frame(out.k_on2)
+par(mfrow = c(2,2))
+plot(out.k_on2$time, out.k_on2$mRNA.R, type="l", xlab="Time", ylab="receptor mRNA", sub="(a)", main = "Concentration of the receptor\nmRNA in the cell")
+plot(out.k_on2$time, out.k_on2$R, type="l", xlab="Time", ylab="free receptor density", sub="(b)", main = "Concentration of free receptors\nin the cell")
+plot(out.k_on2$time, out.k_on2$DR, type="l", xlab="Time", ylab="drug-receptor complex", sub="(c)", main="Concentration of MPL-receptor\ncomplex in the cell")
+plot(out.k_on2$time, out.k_on2$DR_N, type="l", xlab="Time", ylab="activated receptor complex", sub="(d)", main = "Concentration of activated\nMPL-receptor complex \n in the nucleus")
+
+
+parameters.k_on3 <- c(kd_Rm = 0.612, ks_Rm = 2.90, ks_r = 3.22,
+                kd_R = 0.0572, D=53.409, k_on= 0.00329*2, IC50_Rm = 26.2,
+                k_t = 0.63, k_re = 0.57, Rf = 0.49)
+
+# Run simulation using continuous approach
+out.k_on3  <- ode(times = times, y = state,   parms = parameters.k_on3, func = volume, method = "euler")
+
+out.k_on3 <- as.data.frame(out.k_on3)
+par(mfrow = c(2,2))
+plot(out.k_on3$time, out.k_on3$mRNA.R, type="l", xlab="Time", ylab="receptor mRNA", sub="(a)", main = "Concentration of the receptor\nmRNA in the cell")
+plot(out.k_on3$time, out.k_on3$R, type="l", xlab="Time", ylab="free receptor density", sub="(b)", main = "Concentration of free receptors\nin the cell")
+plot(out.k_on3$time, out.k_on3$DR, type="l", xlab="Time", ylab="drug-receptor complex", sub="(c)", main="Concentration of MPL-receptor\ncomplex in the cell")
+plot(out.k_on3$time, out.k_on3$DR_N, type="l", xlab="Time", ylab="activated receptor complex", sub="(d)", main = "Concentration of activated\nMPL-receptor complex \n in the nucleus")
+
+
+parameters.k_on4 <- c(kd_Rm = 0.612, ks_Rm = 2.90, ks_r = 3.22,
+                kd_R = 0.0572, D=53.409, k_on= 0.00329*5, IC50_Rm = 26.2,
+                k_t = 0.63, k_re = 0.57, Rf = 0.49)
+
+# Run simulation using continuous approach
+out.k_on4  <- ode(times = times, y = state,   parms = parameters.k_on4, func = volume, method = "euler")
+
+out.k_on4 <- as.data.frame(out.k_on4)
+par(mfrow = c(2,2))
+plot(out.k_on4$time, out.k_on4$mRNA.R, type="l", xlab="Time", ylab="receptor mRNA", sub="(a)", main = "Concentration of the receptor\nmRNA in the cell")
+plot(out.k_on4$time, out.k_on4$R, type="l", xlab="Time", ylab="free receptor density", sub="(b)", main = "Concentration of free receptors\nin the cell")
+plot(out.k_on4$time, out.k_on4$DR, type="l", xlab="Time", ylab="drug-receptor complex", sub="(c)", main="Concentration of MPL-receptor\ncomplex in the cell")
+plot(out.k_on4$time, out.k_on4$DR_N, type="l", xlab="Time", ylab="activated receptor complex", sub="(d)", main = "Concentration of activated\nMPL-receptor complex \n in the nucleus")
+
+
+
+
+
+
+parameters.k_re1 <- c(kd_Rm = 0.612, ks_Rm = 2.90, ks_r = 3.22,
+                kd_R = 0.0572, D=53.409, k_on= 0.00329, IC50_Rm = 26.2,
+                k_t = 0.63, k_re = 0.57/5, Rf = 0.49)
+
+# Run simulation using continuous approach
+out.k_re1  <- ode(times = times, y = state,   parms = parameters.k_re1, func = volume, method = "euler")
+
+out.k_re1 <- as.data.frame(out.k_re1)
+par(mfrow = c(2,2))
+plot(out.k_re1$time, out.k_re1$mRNA.R, type="l", xlab="Time", ylab="receptor mRNA", sub="(a)", main = "Concentration of the receptor\nmRNA in the cell")
+plot(out.k_re1$time, out.k_re1$R, type="l", xlab="Time", ylab="free receptor density", sub="(b)", main = "Concentration of free receptors\nin the cell")
+plot(out.k_re1$time, out.k_re1$DR, type="l", xlab="Time", ylab="drug-receptor complex", sub="(c)", main="Concentration of MPL-receptor\ncomplex in the cell")
+plot(out.k_re1$time, out.k_re1$DR_N, type="l", xlab="Time", ylab="activated receptor complex", sub="(d)", main = "Concentration of activated\nMPL-receptor complex \n in the nucleus")
+
+
+parameters.k_re2 <- c(kd_Rm = 0.612, ks_Rm = 2.90, ks_r = 3.22,
+                kd_R = 0.0572, D=53.409, k_on= 0.00329, IC50_Rm = 26.2,
+                k_t = 0.63, k_re = 0.57/2, Rf = 0.49)
+
+# Run simulation using continuous approach
+out.k_re2  <- ode(times = times, y = state,   parms = parameters.k_re2, func = volume, method = "euler")
+
+out.k_re2 <- as.data.frame(out.k_re2)
+par(mfrow = c(2,2))
+plot(out.k_re2$time, out.k_re2$mRNA.R, type="l", xlab="Time", ylab="receptor mRNA", sub="(a)", main = "Concentration of the receptor\nmRNA in the cell")
+plot(out.k_re2$time, out.k_re2$R, type="l", xlab="Time", ylab="free receptor density", sub="(b)", main = "Concentration of free receptors\nin the cell")
+plot(out.k_re2$time, out.k_re2$DR, type="l", xlab="Time", ylab="drug-receptor complex", sub="(c)", main="Concentration of MPL-receptor\ncomplex in the cell")
+plot(out.k_re2$time, out.k_re2$DR_N, type="l", xlab="Time", ylab="activated receptor complex", sub="(d)", main = "Concentration of activated\nMPL-receptor complex \n in the nucleus")
+
+
+parameters.k_re3 <- c(kd_Rm = 0.612, ks_Rm = 2.90, ks_r = 3.22,
+                kd_R = 0.0572, D=53.409, k_on= 0.00329, IC50_Rm = 26.2,
+                k_t = 0.63, k_re = 0.57*5, Rf = 0.49)
+
+# Run simulation using continuous approach
+out.k_re3  <- ode(times = times, y = state,   parms = parameters.k_re3, func = volume, method = "euler")
+
+out.k_re3 <- as.data.frame(out.k_re3)
+par(mfrow = c(2,2))
+plot(out.k_re3$time, out.k_re3$mRNA.R, type="l", xlab="Time", ylab="receptor mRNA", sub="(a)", main = "Concentration of the receptor\nmRNA in the cell")
+plot(out.k_re3$time, out.k_re3$R, type="l", xlab="Time", ylab="free receptor density", sub="(b)", main = "Concentration of free receptors\nin the cell")
+plot(out.k_re3$time, out.k_re3$DR, type="l", xlab="Time", ylab="drug-receptor complex", sub="(c)", main="Concentration of MPL-receptor\ncomplex in the cell")
+plot(out.k_re3$time, out.k_re3$DR_N, type="l", xlab="Time", ylab="activated receptor complex", sub="(d)", main = "Concentration of activated\nMPL-receptor complex \n in the nucleus")
+
+
+parameters.k_re4 <- c(kd_Rm = 0.612, ks_Rm = 2.90, ks_r = 3.22,
+                kd_R = 0.0572, D=53.409, k_on= 0.00329, IC50_Rm = 26.2,
+                k_t = 0.63, k_re = 0.57*2, Rf = 0.49)
+
+# Run simulation using continuous approach
+out.k_re4  <- ode(times = times, y = state,   parms = parameters.k_re4, func = volume, method = "euler")
+
+out.k_re4 <- as.data.frame(out.k_re4)
+par(mfrow = c(2,2))
+plot(out.k_re4$time, out.k_re4$mRNA.R, type="l", xlab="Time", ylab="receptor mRNA", sub="(a)", main = "Concentration of the receptor\nmRNA in the cell")
+plot(out.k_re4$time, out.k_re4$R, type="l", xlab="Time", ylab="free receptor density", sub="(b)", main = "Concentration of free receptors\nin the cell")
+plot(out.k_re4$time, out.k_re4$DR, type="l", xlab="Time", ylab="drug-receptor complex", sub="(c)", main="Concentration of MPL-receptor\ncomplex in the cell")
+plot(out.k_re4$time, out.k_re4$DR_N, type="l", xlab="Time", ylab="activated receptor complex", sub="(d)", main = "Concentration of activated\nMPL-receptor complex \n in the nucleus")
+
+
+##################
+# 4
+##################
+
+parameters.blocked <- c(kd_Rm = 0.612, ks_Rm = 2.90, ks_r = 3.22,
+                kd_R = 0.0572, D=53.409, k_on= 0, IC50_Rm = 26.2,
+                k_t = 0.63, k_re = 0.57, Rf = 0.49)
+
+# Run simulation using continuous approach
+out.blocked  <- ode(times = times, y = state,   parms = parameters.blocked, func = volume, method = "euler")
+
+out.blocked <- as.data.frame(out.blocked)
+par(mfrow = c(2,2))
+plot(out.blocked$time, out.blocked$mRNA.R, type="l", xlab="Time", ylab="receptor mRNA", sub="(a)", main = "Concentration of the receptor\nmRNA in the cell")
+plot(out.blocked$time, out.blocked$R, type="l", xlab="Time", ylab="free receptor density", sub="(b)", main = "Concentration of free receptors\nin the cell")
+plot(out.blocked$time, out.blocked$DR, type="l", xlab="Time", ylab="drug-receptor complex", sub="(c)", main="Concentration of MPL-receptor\ncomplex in the cell")
+plot(out.blocked$time, out.blocked$DR_N, type="l", xlab="Time", ylab="activated receptor complex", sub="(d)", main = "Concentration of activated\nMPL-receptor complex \n in the nucleus")
+
+
+
+
+##################
+# 5
+##################
+
+para.5.1 <- c(kd_Rm = 2.9/5/4.74, ks_Rm = 2.9/5, ks_r = 3.22,
+                kd_R = 0.0572, D=53.409, k_on= 0.00329, IC50_Rm = 26.2,
+                k_t = 0.63, k_re = 0.57, Rf = 0.49)
+
+# Run simulation using continuous approach
+out.5.1  <- ode(times = times, y = state,   parms = para.5.1, func = volume, method = "euler")
+
+out.5.1 <- as.data.frame(out.5.1)
+par(mfrow = c(2,2))
+plot(out.5.1$time, out.5.1$mRNA.R, type="l", xlab="Time", ylab="receptor mRNA", sub="(a)", main = "Concentration of the receptor\nmRNA in the cell")
+plot(out.5.1$time, out.5.1$R, type="l", xlab="Time", ylab="free receptor density", sub="(b)", main = "Concentration of free receptors\nin the cell")
+plot(out.5.1$time, out.5.1$DR, type="l", xlab="Time", ylab="drug-receptor complex", sub="(c)", main="Concentration of MPL-receptor\ncomplex in the cell")
+plot(out.5.1$time, out.5.1$DR_N, type="l", xlab="Time", ylab="activated receptor complex", sub="(d)", main = "Concentration of activated\nMPL-receptor complex \n in the nucleus")
+
+para.5.2 <- c(kd_Rm = 2.9/2/4.74, ks_Rm = 2.9/2, ks_r = 3.22,
+                kd_R = 0.0572, D=53.409, k_on= 0.00329, IC50_Rm = 26.2,
+                k_t = 0.63, k_re = 0.57, Rf = 0.49)
+
+# Run simulation using continuous approach
+out.5.2  <- ode(times = times, y = state,   parms = para.5.2, func = volume, method = "euler")
+
+out.5.2 <- as.data.frame(out.5.2)
+par(mfrow = c(2,2))
+plot(out.5.2$time, out.5.2$mRNA.R, type="l", xlab="Time", ylab="receptor mRNA", sub="(a)", main = "Concentration of the receptor\nmRNA in the cell")
+plot(out.5.2$time, out.5.2$R, type="l", xlab="Time", ylab="free receptor density", sub="(b)", main = "Concentration of free receptors\nin the cell")
+plot(out.5.2$time, out.5.2$DR, type="l", xlab="Time", ylab="drug-receptor complex", sub="(c)", main="Concentration of MPL-receptor\ncomplex in the cell")
+plot(out.5.2$time, out.5.2$DR_N, type="l", xlab="Time", ylab="activated receptor complex", sub="(d)", main = "Concentration of activated\nMPL-receptor complex \n in the nucleus")
+
+para.5.3 <- c(kd_Rm = 2.9*2/4.74, ks_Rm = 2.9*2, ks_r = 3.22,
+                kd_R = 0.0572, D=53.409, k_on= 0.00329, IC50_Rm = 26.2,
+                k_t = 0.63, k_re = 0.57, Rf = 0.49)
+
+# Run simulation using continuous approach
+out.5.3  <- ode(times = times, y = state,   parms = para.5.3, func = volume, method = "euler")
+
+out.5.3 <- as.data.frame(out.5.3)
+par(mfrow = c(2,2))
+plot(out.5.3$time, out.5.3$mRNA.R, type="l", xlab="Time", ylab="receptor mRNA", sub="(a)", main = "Concentration of the receptor\nmRNA in the cell")
+plot(out.5.3$time, out.5.3$R, type="l", xlab="Time", ylab="free receptor density", sub="(b)", main = "Concentration of free receptors\nin the cell")
+plot(out.5.3$time, out.5.3$DR, type="l", xlab="Time", ylab="drug-receptor complex", sub="(c)", main="Concentration of MPL-receptor\ncomplex in the cell")
+plot(out.5.3$time, out.5.3$DR_N, type="l", xlab="Time", ylab="activated receptor complex", sub="(d)", main = "Concentration of activated\nMPL-receptor complex \n in the nucleus")
+
+para.5.4 <- c(kd_Rm = 2.9*5/4.74, ks_Rm = 2.9*5, ks_r = 3.22,
+                kd_R = 0.0572, D=53.409, k_on= 0.00329, IC50_Rm = 26.2,
+                k_t = 0.63, k_re = 0.57, Rf = 0.49)
+
+# Run simulation using continuous approach
+out.5.4  <- ode(times = times, y = state,   parms = para.5.4, func = volume, method = "euler")
+
+out.5.4 <- as.data.frame(out.5.4)
+par(mfrow = c(2,2))
+plot(out.5.4$time, out.5.4$mRNA.R, type="l", xlab="Time", ylab="receptor mRNA", sub="(a)", main = "Concentration of the receptor\nmRNA in the cell")
+plot(out.5.4$time, out.5.4$R, type="l", xlab="Time", ylab="free receptor density", sub="(b)", main = "Concentration of free receptors\nin the cell")
+plot(out.5.4$time, out.5.4$DR, type="l", xlab="Time", ylab="drug-receptor complex", sub="(c)", main="Concentration of MPL-receptor\ncomplex in the cell")
+plot(out.5.4$time, out.5.4$DR_N, type="l", xlab="Time", ylab="activated receptor complex", sub="(d)", main = "Concentration of activated\nMPL-receptor complex \n in the nucleus")
+
+```
+
+[4] k.on moet op 0 gezet worden. Dit is de snelheid waarmee het complex gesynthetiseerd worden.
+=======
 
 ## Model validation
 ```{r model validation attachement, echo = T, eval=FALSE }
@@ -375,3 +636,4 @@ names(medians)[1:2] <- c("dose","time")
 dose_0.3 <- medians[medians$dose==0.3,]
 dose_0.1 <- medians[medians$dose==0.1,]
 ```
+
