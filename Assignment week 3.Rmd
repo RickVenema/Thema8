@@ -4,14 +4,18 @@ author: "Bas Kasemir & Rick Venema"
 date: "`r Sys.Date()`"
 output:
   pdf_document:
-    toc: True
+    toc: yes
+    fig_caption: yes
+header-includes:
+- \usepackage{float}
+- \usepackage{graphicx}
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, fig.pos='H')
 ```
 
-
+\newpage
 # Introduction
 Corticosteroids are adrenal cortex hormones. There are two groups where the corticoteroids can be divided in: Glucocorticoids and Mineralocorticoids. The
 corticosteroids are used in the treatments against several diseases related to skin and  allergies because they act on for example the nasel passage epithelial cells and on the T Lymfocytes.
@@ -43,6 +47,7 @@ To validate the model data from experiments is used to assess the model.
 # Results
 
 ## Model results
+
 
 ```{r model, echo= F}
 
@@ -88,9 +93,15 @@ out <- ode(times = times, y = state,   parms = parameters, func = volume, method
 out <- as.data.frame(out)
 ```
 
+In figure 1a, the concentration of receptor mRNA in the cell is shown. This graph is a declining graph meaning that the concentration of the receptors decreases. This is caused by the activation of these receptors.
+And after a while the concentration increases, meaning that the concentration of receptor mRNA increases until it reaches an equilibrium. This increase is due to the loss of activated receptor in the nucleus.
 
+As shown in figure 1b, the concentration of free receptors decreases in the cell, this is because almost all the glucocorticoid receptor binds with glucocorticoid that enters the cell. Eventually this graph reaches it
+equilibrium nearing zero. This is because of the down-regulation of their own receptors.
 
-```{r plots, echo=F, fig.cap="Graphs showing the concentration of receptors in the cell during a 48 hour time period"}
+Figure 1c, and figure 1d have the same course, this is because they have a correlation. Figure 1c shows the drug-receptor complex in the cell itself and figure 1d shows the activated receptor complex. This last complex
+moves to the nucleus of the cell, meaning that the graph in figure 1d has a slight move to the right. This is because it takes some time for an activated receptor complex to move to the nucleus of the cell.
+```{r plots, echo=F, fig.cap="Graphs showing the concentration of receptors in the cell during a 48 hour time period", fig.pos="!hb"}
 par(mfrow = c(2, 2))
 
 plot(out$time,out$mRNA.R,ylim = c(0,5), xlab="Time",
@@ -119,17 +130,10 @@ plot(out$time,out$DR_N, ylim = c(0,75), xlab="Time",ylab="activated receptor com
 
 ```
 
-In figure 1a, the concentration of receptor mRNA in the cell is shown. This graph is a declining graph meaning that the concentration of the receptors decreases. This is caused by the activation of these receptors.
-And after a while the concentration increases, meaning that the concentration of receptor mRNA increases until it reaches an equilibrium. This increase is due to the loss of activated receptor in the nucleus.
 
-As shown in figure 1b, the concentration of free receptors decreases in the cell, this is because almost all the glucocorticoid receptor binds with glucocorticoid that enters the cell. Eventually this graph reaches it
-equilibrium nearing zero. This is because of the down-regulation of their own receptors.
-
-Figure 1c, and figure 1d have the same course, this is because they have a correlation. Figure 1c shows the drug-receptor complex in the cell itself and figure 1d shows the activated receptor complex. This last complex
-moves to the nucleus of the cell, meaning that the graph in figure 1d has a slight move to the right. This is because it takes some time for an activated receptor complex to move to the nucleus of the cell.
-
-
+\newpage
 ## Model validation
+
 ```{r model validation, echo = F}
 # Rick Venema
 # 368044
@@ -184,63 +188,80 @@ dose_0.3 <- medians[medians$dose==0.3,]
 dose_0.1 <- medians[medians$dose==0.1,]
 ```
 
-```{r plots validation, echo=F, fig.cap="Graphs showing the experiment data in combination with the model"}
-# Rick Venema
-# 368044
-# k.f.venema@st.hanze.nl
 
+In figure 2a and 2b the model is shown with the experimental data. By adding this data, the model can be
+validated. In these graphs, the model is represented as the black line, the medians are represented by the red
+line, and the black dots are representing the raw experimental data. As shown in the graph, the median line follows the 
+model line, exept for around 50 hours. On timepoint 50, there is a little bump in the line, this means that the
+average on that timepoint is a bit higher than expected from the model. Furthermore there is a clear difference
+in figure 2a the line gets a lower steady point than the model in figure 2b, this is due to the lowering of the dose. A higher dose results in a lower concentration of free receptor in the cell.
+
+```{r plots validation, echo=F, fig.cap="Graphs showing the experiment data in combination with the model", fig.height=3.5, fig.pos='H'}
 # parameters to define the layout of the figure
 par(mfrow=c(1,2))
 
 # Plots of Free receptor
 plot(dose_0.3$time, dose_0.3$Free_receptor, ylim=c(0,500), col="red", type="l", xlim=c(-1, 175),
-     main="Concentration of Free receptor with dose 0.3",
+     main="Concentration of Free receptor \n with dose 0.3",
      sub = "(a)", xlab = "Timeunits", ylab = "Free receptor",
      cex.main = 1)
 points(data_0.3$time,data_0.3$Free_receptor)
 points(out0.3$time,out0.3$R, type="l")
 
 plot(dose_0.1$time, dose_0.1$Free_receptor, ylim=c(0,500), col="red", type="l", xlim=c(-1, 175),
-     main="Concentration of Free receptor with dose 0.1", 
+     main="Concentration of Free receptor \n with dose 0.1", 
      sub = "(b)", xlab = "Timeunits", ylab="Free receptor",
      cex.main = 1)
 points(data_0.1$time,data_0.1$Free_receptor)
 points(out0.1$time,out0.1$R, type="l")
+```
 
+Figure 3 shows the difference in concentration of mRNA with dose 0.3 and dose 0.1, This difference is visable in the height of the steady state of the model. With a dose 0.3 the steady state is lower than the steady state of dose 0.1. This can be seen in figure 3a and figure 3b. After the model has entered the steady state, the 
+experimental data is not a straight steady state. The experimental data has a big fluctuation. 
+
+```{r plots validation mRNA, echo=F, fig.cap="The difference in concentration of mRNA by dose 0.1 and dose 0.3", fig.height=3.5, fig.pos='H'}
+par(mfrow=c(1,2))
 # Plots of concentration mRNA
 plot(dose_0.3$time, dose_0.3$mRNA, col="red", type="l", xlim=c(-1, 175),
-     main = "Concentration of mRNA with dose 0.3",
-     sub = "(c)", xlab = "Timeunits", ylab = "mRNA",
+     main = "Concentration of mRNA \n with dose 0.3",
+     sub = "(a)", xlab = "Timeunits", ylab = "mRNA",
      cex.main = 1 )
 points(data_0.3$time,data_0.3$mRNA)
 points(out0.3$time,out0.3$mRNA.R, type="l")
 
 plot(dose_0.1$time, dose_0.1$mRNA, col="red", type="l", xlim=c(-1, 175),
-     main="Concentration of mRNA with dose 0.1",
-     sub = "(d)", xlab = "Timeunits", ylab="mRNA",
+     main="Concentration of mRNA with \n dose 0.1",
+     sub = "(b)", xlab = "Timeunits", ylab="mRNA",
      cex.main = 1)
 points(data_0.1$time,data_0.1$mRNA)
 points(out0.1$time,out0.1$mRNA.R, type="l")
+```
 
+LORUM!!
+
+```{r plots validation MPL, echo=F, fig.cap="Figure showing the difference in concentration of MPL with dose 0.3 and dose 0.1", fig.height=3.5, fig.pos='H'}
+par(mfrow=c(1,2))
 # Plots of concentration MPL
-plot(dose_0.3$time, dose_0.3$MPL_conc, col="red", type="l", ylim=c(0,250), xlim=c(-1, 175),
-     main = "Concentration of MPL with dose 0.3",
-     sub = "(e)", xlab = "Timeunits", ylab = "MPL",
+plot(dose_0.3$time, dose_0.3$MPL_conc, col="red", type="l", ylim=c(0,150), xlim=c(-1, 175),
+     main = "Concentration of MPL \n with dose 0.3",
+     sub = "(a)", xlab = "Timeunits", ylab = "MPL",
      cex.main = 1)
 points(data_0.3$time, data_0.3$MPL_conc)
 points(out0.3$time, out0.3$DR, type="l")
 
-plot(dose_0.1$time, dose_0.1$MPL_conc, col="red", type="l", ylim=c(0,250), xlim=c(-1, 175),
-     main = "Concentration of MPL with dose 0.1",
-     sub = "(f)", xlab = "Timeunits", ylab = "MPL",
+plot(dose_0.1$time, dose_0.1$MPL_conc, col="red", type="l", ylim=c(0,150), xlim=c(-1, 175),
+     main = "Concentration of MPL \n with dose 0.1",
+     sub = "(b)", xlab = "Timeunits", ylab = "MPL",
      cex.main = 1)
 points(data_0.1$time, data_0.1$MPL_conc)
 points(out0.1$time, out0.1$DR, type="l")
 ```
 
 
+
 # Bibliografie
 1. Meijsing, Sebastiaan H. et al. The Ligand Binding Domain Controls Glucocorticoid Receptor Dynamics Independent of Ligand Release Molecular and Cellular Biology 27.7 (2007): 2442 2451. PMC. Web. 18 May 2018.
+2. Writing Your Thesis with R Markdown (5) - The Thesis Layout https://rosannavanhespenresearch.wordpress.com/2016/03/30/writing-your-thesis-with-r-markdown-5-the-thesis-layout/ 
 
 # Attachments
 ## Model
@@ -283,8 +304,10 @@ state <- c(mRNA.R = 4.74, R = 267, DR_N = 0, DR = 0)
 times <- seq(0, 48,  by = 1)
 
 # Run simulation using continuous approach
-out  <- ode(times = times, y = state,   parms = parameters, func = volume, method = "euler")
+out  <- ode(times = times, y = state,   parms = parameters, func = volume, 
+            method = "euler")
 ```
+
 
 
 ## Assignment 2
@@ -544,3 +567,63 @@ plot(out.5.4$time, out.5.4$DR_N, type="l", xlab="Time", ylab="activated receptor
 ```
 
 [4] k.on moet op 0 gezet worden. Dit is de snelheid waarmee het complex gesynthetiseerd worden.
+=======
+
+## Model validation
+```{r model validation attachement, echo = T, eval=FALSE }
+# Rick Venema
+# 368044
+# k.f.venema@st.hanze.nl
+
+############
+# The Data #
+############
+# Read data from CSV file
+data <- read.csv("MPL.csv", na.strings = "NA")
+
+# Store trimmed data for dose 0.1 and dose 0.3
+data_0.1 <- data[data$dose == 0.1,]
+data_0.3 <- data[data$dose == 0.3,]
+
+# Calculate the median of the cocentration MPL for dose 0.1 and dose 0.3
+median_MPL_0.3 <- median(data$MPL_conc[data$dose==0.3], na.rm = T)
+median_MPL_0.1 <- median(data$MPL_conc[data$dose==0.1], na.rm = T)
+
+# Store trimmed data for dose 0.1 and dose 0.3
+D_0.3 <- median_MPL_0.3*1000/374.471
+D_0.1 <- median_MPL_0.1*1000/374.471
+
+####
+# Model with parameters responding with experiment
+#
+parameters0.3 <- c(kd_Rm = 0.612, ks_Rm = 2.90, ks_r = 3.22,
+                kd_R = 0.0572, D= D_0.3, k_on= 0.00329, IC50_Rm = 26.2,
+                k_t = 0.63, k_re = 0.57, Rf = 0.49)
+
+parameters0.1 <- c(kd_Rm = 0.612, ks_Rm = 2.90, ks_r = 3.22,
+                kd_R = 0.0572, D= D_0.1, k_on= 0.00329, IC50_Rm = 26.2,
+                k_t = 0.63, k_re = 0.57, Rf = 0.49)
+
+state0.3 <- c(mRNA.R = 4.74, R = 267, DR_N = 0, DR = 0)
+state0.1 <- c(mRNA.R = 4.74, R = 267, DR_N = 0, DR = 0)
+
+times <- seq(0, 175,  by = 1)
+
+
+# Run simulation using continuous approach
+out0.3  <- ode(times = times, y = state0.3,   parms = parameters0.3, 
+               func = volume, method = "euler")
+out0.3 <- as.data.frame(out0.3)
+
+out0.1  <- ode(times = times, y = state0.1,   parms = parameters0.1, 
+               func = volume, method = "euler")
+out0.1 <- as.data.frame(out0.1)
+
+medians <- aggregate(data[,c("MPL_conc","mRNA","Free_receptor")],
+                     list(data$dose,data$time), median, na.rm=T)
+names(medians)[1:2] <- c("dose","time")
+
+dose_0.3 <- medians[medians$dose==0.3,]
+dose_0.1 <- medians[medians$dose==0.1,]
+```
+
