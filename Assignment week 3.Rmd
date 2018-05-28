@@ -9,6 +9,7 @@ output:
 header-includes:
 - \usepackage{float}
 - \usepackage{graphicx}
+- \usepackage{caption}
 ---
 
 ```{r setup, include=FALSE}
@@ -41,7 +42,10 @@ $$\ \frac {dDRN(N)}{dt} = k_{\tau} * DR - k_{re} * DR(N)  $$
 
 
 ## Validation of the model
-To validate the model data from experiments is used to assess the model.
+To validate the model data from experiments is used to assess the model. If the experiment data is added, the model can
+show graphs having the same course, meaning that the model is acurate. If the model shows the same course, but is slightly 
+higher or lower than the experiment data, we can conclude that the model is not refined yet, and needs tweaking of the 
+parameters to give a better representation of the reality.
 
 \newpage
 # Results
@@ -101,6 +105,7 @@ equilibrium nearing zero. This is because of the down-regulation of their own re
 
 Figure 1c, and figure 1d have the same course, this is because they have a correlation. Figure 1c shows the drug-receptor complex in the cell itself and figure 1d shows the activated receptor complex. This last complex
 moves to the nucleus of the cell, meaning that the graph in figure 1d has a slight move to the right. This is because it takes some time for an activated receptor complex to move to the nucleus of the cell.
+  
 ```{r plots, echo=F, fig.cap="Graphs showing the concentration of receptors in the cell during a 48 hour time period", fig.pos="!hb"}
 par(mfrow = c(2, 2))
 
@@ -187,7 +192,7 @@ names(medians)[1:2] <- c("dose","time")
 dose_0.3 <- medians[medians$dose==0.3,]
 dose_0.1 <- medians[medians$dose==0.1,]
 ```
-
+  
 
 In figure 2a and 2b the model is shown with the experimental data. By adding this data, the model can be
 validated. In these graphs, the model is represented as the black line, the medians are represented by the red
@@ -195,8 +200,10 @@ line, and the black dots are representing the raw experimental data. As shown in
 model line, exept for around 50 hours. On timepoint 50, there is a little bump in the line, this means that the
 average on that timepoint is a bit higher than expected from the model. Furthermore there is a clear difference
 in figure 2a the line gets a lower steady point than the model in figure 2b, this is due to the lowering of the dose. A higher dose results in a lower concentration of free receptor in the cell.
+  
 
-```{r plots validation, echo=F, fig.cap="Graphs showing the experiment data in combination with the model", fig.height=3.5, fig.pos='H'}
+  
+```{r plots validation, echo=F, fig.cap="Graphs showing the experiment data in combination with the model", fig.height=3.5, fig.pos='!H'}
 # parameters to define the layout of the figure
 par(mfrow=c(1,2))
 
@@ -215,11 +222,11 @@ plot(dose_0.1$time, dose_0.1$Free_receptor, ylim=c(0,500), col="red", type="l", 
 points(data_0.1$time,data_0.1$Free_receptor)
 points(out0.1$time,out0.1$R, type="l")
 ```
-
+  
 Figure 3 shows the difference in concentration of mRNA with dose 0.3 and dose 0.1, This difference is visable in the height of the steady state of the model. With a dose 0.3 the steady state is lower than the steady state of dose 0.1. This can be seen in figure 3a and figure 3b. After the model has entered the steady state, the 
 experimental data is not a straight steady state. The experimental data has a big fluctuation. 
 
-```{r plots validation mRNA, echo=F, fig.cap="The difference in concentration of mRNA by dose 0.1 and dose 0.3", fig.height=3.5, fig.pos='H'}
+```{r plots validation mRNA, echo=F, fig.cap="The difference in concentration of mRNA by dose 0.1 and dose 0.3", fig.height=3.5, fig.pos='!Ht'}
 par(mfrow=c(1,2))
 # Plots of concentration mRNA
 plot(dose_0.3$time, dose_0.3$mRNA, col="red", type="l", xlim=c(-1, 175),
@@ -236,10 +243,13 @@ plot(dose_0.1$time, dose_0.1$mRNA, col="red", type="l", xlim=c(-1, 175),
 points(data_0.1$time,data_0.1$mRNA)
 points(out0.1$time,out0.1$mRNA.R, type="l")
 ```
+  
+Figure 4 shows the difference of concentration of MPL with dose 0.3 and dose 0.1. In figure 4a the model shows a completely different path than the experiment data. 
+This means that the model is not representative of the reality and thus can be further improved to match the experiment data. Figure 4b model line shows the same course as the experiment data, meaning that the model is acurate and is in line
+with the experiment data.
 
-LORUM!!
 
-```{r plots validation MPL, echo=F, fig.cap="Figure showing the difference in concentration of MPL with dose 0.3 and dose 0.1", fig.height=3.5, fig.pos='H'}
+```{r plots validation MPL, echo=F, fig.cap="Figure showing the difference in concentration of MPL with dose 0.3 and dose 0.1", fig.height=3.5, fig.pos='!Ht'}
 par(mfrow=c(1,2))
 # Plots of concentration MPL
 plot(dose_0.3$time, dose_0.3$MPL_conc, col="red", type="l", ylim=c(0,150), xlim=c(-1, 175),
@@ -258,7 +268,7 @@ points(out0.1$time, out0.1$DR, type="l")
 ```
 
 
-
+\newpage
 # Bibliografie
 1. Meijsing, Sebastiaan H. et al. The Ligand Binding Domain Controls Glucocorticoid Receptor Dynamics Independent of Ligand Release Molecular and Cellular Biology 27.7 (2007): 2442 2451. PMC. Web. 18 May 2018.
 2. Writing Your Thesis with R Markdown (5) - The Thesis Layout https://rosannavanhespenresearch.wordpress.com/2016/03/30/writing-your-thesis-with-r-markdown-5-the-thesis-layout/ 
