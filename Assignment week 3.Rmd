@@ -576,7 +576,9 @@ plot(out.5.4$time, out.5.4$DR_N, type="l", xlab="Time", ylab="activated receptor
 
 ```
 
+
 [4] k.on moet op 0 gezet worden. Dit is de snelheid waarmee het complex gesynthetiseerd worden.
+
 =======
 
 ## Model validation
