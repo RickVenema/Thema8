@@ -193,6 +193,7 @@ dose_0.3 <- medians[medians$dose==0.3,]
 dose_0.1 <- medians[medians$dose==0.1,]
 ```
   
+<<<<<<< HEAD
 
 In figure 2a and 2b the model is shown with the experimental data. By adding this data, the model can be
 validated. In these graphs, the model is represented as the black line, the medians are represented by the red
@@ -202,6 +203,17 @@ average on that timepoint is a bit higher than expected from the model. Furtherm
 in figure 2a the line gets a lower steady point than the model in figure 2b, this is due to the lowering of the dose. A higher dose results in a lower concentration of free receptor in the cell.
   
 
+=======
+
+In figure 2a and 2b the model is shown with the experimental data. By adding this data, the model can be
+validated. In these graphs, the model is represented as the black line, the medians are represented by the red
+line, and the black dots are representing the raw experimental data. As shown in the graph, the median line follows the 
+model line, exept for around 50 hours. On timepoint 50, there is a little bump in the line, this means that the
+average on that timepoint is a bit higher than expected from the model. Furthermore there is a clear difference
+in figure 2a the line gets a lower steady point than the model in figure 2b, this is due to the lowering of the dose. A higher dose results in a lower concentration of free receptor in the cell.
+  
+
+>>>>>>> 94ec638f01af1b86648e349cfed9896e13e1af96
   
 ```{r plots validation, echo=F, fig.cap="Graphs showing the experiment data in combination with the model", fig.height=3.5, fig.pos='!H'}
 # parameters to define the layout of the figure
@@ -249,8 +261,11 @@ This means that the model is not representative of the reality and thus can be f
 with the experiment data.
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Figure 3 shows the difference in concentration of mRNA with dose 0.3 and dose 0.1, This difference is visable in the height of the steady state of the model. With a dose 0.3 the steady state is lower than the steady state of dose 0.1. This can be seen in figure 3a and figure 3b. After the model has entered the steady state, the 
 experimental data is not a straight steady state. The experimental data has a big fluctuation. Meaning that the steady state, is not a real steady state in reality. The steady state can be different depending on the time. 
+=======
+>>>>>>> 94ec638f01af1b86648e349cfed9896e13e1af96
 =======
 >>>>>>> 94ec638f01af1b86648e349cfed9896e13e1af96
 
