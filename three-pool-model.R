@@ -11,11 +11,11 @@ library(deSolve)
 # dz = diepte
 ##
 
-parameters <- c(I_tzd = 0, A = 0, D = 0, C = 0, dz = 0, h = 0.34, f2 = 0.8, f1 = 0.86) 
+parameters <- c(I_tzd = 1, A = 0.0000854, D = 9.64*(10^-4), C = 1, dz = 0.2, h = 0.34, f2 = 0.8, f1 = 0.86) 
 
-state <- c(dec_HSOC2_tzd = 0.83 * (10^-2), dec_HSOC1_tzd = 0.01*(10^-2), dec_FOC_tzd)
+state <- c(dec_HSOC2_tzd <- 0.0083, dec_HSOC1_tzd <- 0.0001, dec_FOC_tzd <- 1.01)
 
-times <- seq(0, 300,  by = 1)
+times <- seq(0, 20,  by = 1)
 
 three.pool <- function(t, y, parms){
   with(as.list(c(parms)), {
@@ -32,3 +32,8 @@ three.pool <- function(t, y, parms){
 # not in attachment
 ####
 out  <- ode(times = times, y = state,   parms = parameters, func = three.pool, method = "euler")
+
+out <- as.data.frame(out)
+colnames(out)<- c("distance from tree", "FOC", "HSOC1", "HSOC2")
+plot(out$`distance from tree`, out$FOC)
+
