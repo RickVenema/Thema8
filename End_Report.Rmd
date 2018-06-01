@@ -14,13 +14,19 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 \newpage
 # Introduction
-
+waar zijn we mee bezig, uitbreiden, opnieuw doen
 
 # Materials and methods
-
+welke methode gebruik ik wat 
 
 # Results
 
 
 # Discussion
+conclusie van het verhaal, hoe was het goed uit te voeren?, waarom niet helemaal belicht, verschil.
 
+# Conclusion
+
+
+# References
+* Soetaert, K., Petzoldt, T., and Woodrow Setzer, R.: Solving differential equations in R: package deSolve, J. Stat. Softw., 33, 1-25, 2010.
