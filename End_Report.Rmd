@@ -1,0 +1,26 @@
+---
+title: High organic inputs explain shallow and deep SOC storage in a long-term agroforestry
+  system - combining experimental and modeling approaches 
+author: "Rick Venema & Bas Kasemir"
+date: "1 juni 2018"
+output: 
+  pdf_document:
+    toc: True
+    number_sections: True
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+\newpage
+# Introduction
+
+
+# Materials and methods
+
+
+# Results
+
+
+# Discussion
+
