@@ -2,7 +2,7 @@
 title: High organic inputs explain shallow and deep SOC storage in a long-term agroforestry
   system - combining experimental and modeling approaches 
 author: "Rick Venema & Bas Kasemir"
-date: "1 juni 2018"
+date: "`r Sys.Date()`"
 output: 
   pdf_document:
     toc: True
@@ -14,10 +14,20 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 \newpage
 # Introduction
+This paper is based around the reproduction of the paper by Cardinal et al. (2018). This paper is about SOC (soil organic carbon) storage. This is the amount of carbon in the soil. The model that is created in that paper contains different models describing the flow of carbon in the soil and trees next to it. 
 waar zijn we mee bezig, uitbreiden, opnieuw doen
 
 # Materials and methods
 welke methode gebruik ik wat 
+
+## The Model
+The model is defined in the paper by Cardinal et al. (2018), this model follows a three pool model. 
+
+$$ \frac{\delta FOC_{t,z,d}}{\delta t} = I_{t,z,d} + \frac{\delta F_{AD}}{\delta z} + h * f_{2}* dec\_HSOC_{t,z,d} + h *dec\_HSOC2_{tzd} - dec\_FOC_{t,z,d}  $$
+
+$$ \frac{\delta HSOC1}{\delta t} = \frac{\delta F_{AD}}{\delta z} + h *f1 * dec\_FOC_{t,z,d} - dec\_HSOC1_{t,z,d} $$
+
+$$ \frac{\delta HSOC2}{\delta t} = \frac{\delta F_{AD}}{\delta z} + h *  $$
 
 # Results
 
@@ -29,4 +39,5 @@ conclusie van het verhaal, hoe was het goed uit te voeren?, waarom niet helemaal
 
 
 # References
-* Soetaert, K., Petzoldt, T., and Woodrow Setzer, R.: Solving differential equations in R: package deSolve, J. Stat. Softw., 33, 1-25, 2010.
+1. Cardinael, R., Guenet, B., Chevallier, T., Dupraz, C., Cozzi, T., and Chenu, C.: High organic imputs explain shallow and deep SOC storage in a long-term agroforestry system - combining experimental and modeling approaches, Biogeosciences, 15, 297-317, https://di.org/10.5194/bg-15-297-2018, 2018.
+2. Soetaert, K., Petzoldt, T., and Woodrow Setzer, R.: Solving differential equations in R: package deSolve, J. Stat. Softw., 33, 1-25, 2010.
