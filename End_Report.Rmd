@@ -3,40 +3,86 @@ title: High organic inputs explain shallow and deep SOC storage in a long-term a
   system - combining experimental and modeling approaches 
 author: "Rick Venema & Bas Kasemir"
 date: "`r Sys.Date()`"
+
 output: 
   pdf_document:
-    toc: True
+    toc: False
     number_sections: True
+  includes:
+    in_header: latex/header.tex
+    before_body: latex/before_body.tex
+    after_body: latex/after_body.tex
+
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+
 \newpage
+\tableofcontents
+\newpage
+
+
 # Introduction
 This paper is based around the reproduction of the paper by Cardinal et al. (2018). This paper is about SOC (soil organic carbon) storage. This is the amount of carbon in the soil. The model that is created in that paper contains different models describing the flow of carbon in the soil and trees next to it. 
+
+
 waar zijn we mee bezig, uitbreiden, opnieuw doen
 
 # Materials and methods
+To create a valid model, the model must need to account the depth, distance from the tree and the time in years. This can be done with partial differential equations.
+
 welke methode gebruik ik wat 
 
 ## The Model
 The model is defined in the paper by Cardinal et al. (2018), this model follows a three pool model. 
 
-$$ \frac{\delta FOC_{t,z,d}}{\delta t} = I_{t,z,d} + \frac{\delta F_{AD}}{\delta z} + h * f_{2}* dec\_HSOC_{t,z,d} + h *dec\_HSOC2_{tzd} - dec\_FOC_{t,z,d}  $$
+The fresh organic compound (FOC) difference can be found in formula \ref{eq:deltafoc}.
+\begin{equation} \label{eq:deltafoc}
+\frac{\delta FOC_{t,z,d}}{\delta t} = I_{t,z,d} + \frac{\delta F_{AD}}{\delta z} + h * f_{2}* dec\_HSOC_{t,z,d} + h *dec\_HSOC2_{tzd} - dec\_FOC_{t,z,d} 
+\end{equation}
 
-$$ \frac{\delta HSOC1}{\delta t} = \frac{\delta F_{AD}}{\delta z} + h *f1 * dec\_FOC_{t,z,d} - dec\_HSOC1_{t,z,d} $$
 
-$$ \frac{\delta HSOC2}{\delta t} = \frac{\delta F_{AD}}{\delta z} + h *  $$
+\begin{equation} \label{eq:deltahsoc1}
+ \frac{\delta HSOC1}{\delta t} = \frac{\delta F_{AD}}{\delta z} + h * f_{1} * dec\_FOC_{t,z,d} - dec\_HSOC1_{t,z,d}
+\end{equation}
+
+\begin{equation} \label{eq:deltahsoc2}
+  \frac{\delta HSOC2}{\delta t} = \frac{\delta F_{AD}}{\delta z} + h * (1-f_{1}) * dec\_FOC_{t,z,d} + h *(1-f_{2})*dec\_HSOC1_{t,z,d} - dec\_HSOC2_{t,z,d}
+\end{equation}
+
+
+
+
+## The Parameters and Starting Values
+\begin {table}[!h]
+\caption{Table showing the parameters used} \label{tab:parameters}
+\begin{center} 
+    \begin{tabular}{ l | l }
+    \hline 
+    \multicolumn{2}{c}{\textbf{\textsl{Parameters}}} \\ [0.5ex]
+    \hline
+    \emph{Parameter} & \emph{value} \\ \hline
+    $I_{t,z,d}$ & 0.69 \\ \hline
+    Tuesday & 9C   \\ \hline
+    Wednesday & 10C \\ 
+    \hline
+    \end{tabular}
+\end{center}
+\end{table}
+
 
 # Results
-
+```{r test of import, message=F, echo=F, warning=F}
+source(file="three-pool-model.R")
+``` 
 
 # Discussion
 conclusie van het verhaal, hoe was het goed uit te voeren?, waarom niet helemaal belicht, verschil.
 
 # Conclusion
-
 
 # References
 1. Cardinael, R., Guenet, B., Chevallier, T., Dupraz, C., Cozzi, T., and Chenu, C.: High organic imputs explain shallow and deep SOC storage in a long-term agroforestry system - combining experimental and modeling approaches, Biogeosciences, 15, 297-317, https://di.org/10.5194/bg-15-297-2018, 2018.
