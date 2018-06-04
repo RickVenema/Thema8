@@ -34,4 +34,7 @@ times <- seq(0,200, by = 1)
 out <- ode.2D(y = yini, times = times, func = LVmod2D, 
               parms = pars, dimens = c(N, N), N = N, 
               dx = dx, dy = dy, Da = Da, ynames = FALSE, lrw = 440000)
-out[,2]
+
+
+t50 <-  matrix(nrow = nx, ncol = ny,
+               data = subset(out, select = "C", subset = (time == 50)))
