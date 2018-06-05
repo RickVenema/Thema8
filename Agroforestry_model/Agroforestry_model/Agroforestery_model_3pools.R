@@ -4,7 +4,6 @@
 
 #The time step of the model is 1year.
 #The transport and decomposition models are based on Guenet et al., 2013 Biogeosciences. The moisture function is based on Moyano et al. 2012 Biogeosciences.
-setwd('E:/Thema8/Agroforestry_model/Agroforestry_model/')
 rm(list = ls())
 print("***************************************")
 print("Welcome!")
