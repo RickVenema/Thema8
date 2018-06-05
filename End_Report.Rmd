@@ -29,12 +29,33 @@ knitr::opts_chunk$set(echo = TRUE)
 This paper is based around the reproduction of the paper by Cardinal et al. (2018). This paper is about SOC (soil organic carbon) storage. This is the amount of carbon in the soil. The model that is created in that paper contains different models describing the flow of carbon in the soil and trees next to it. 
 
 
+
+eerst het onderwerp / probleem (niet vermelden dat we opnieuw doen) verleiden met eerste zin om het te lezen. 2e zin geeft context, probleem. (het versimpelen van bestaand model) doel
+
+Achtergrond 
+waar zijn we mee bezig/wat is gedaan (context)
+
+problemen (voorbereidend op wat je zelf gaat doet)
+-> studie (dit gaan we doen)
+
+indeling verslag (wat de lezer tegen kan komen)
+
+
+
 waar zijn we mee bezig, uitbreiden, opnieuw doen
 
 # Materials and methods
 To create a valid model, the model must need to account the depth, distance from the tree and the time in years. This can be done with partial differential equations.
 
 welke methode gebruik ik wat 
+
+
+waar komt data/model vandaan model = visueel = formules
+
+Aanpak / variatie 
+
+Analyse 
+wel in verhaaltje vertellen.
 
 ## The Model
 The model is defined in the paper by Cardinal et al. (2018), this model follows a three pool model. 
@@ -79,6 +100,8 @@ The fresh organic compound (FOC) difference can be found in formula \ref{eq:delt
 source(file="three-pool-model.R")
 ``` 
 
+
+grafieken met onderschrift en uitleg over wat er te zien is
 # Discussion
 conclusie van het verhaal, hoe was het goed uit te voeren?, waarom niet helemaal belicht, verschil.
 
