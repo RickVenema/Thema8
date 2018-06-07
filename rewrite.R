@@ -62,7 +62,7 @@ for (i in z[,1]) {
   counts.bd <- counts.bd + 1
   z.plus <- abs(i)
   print(counts.bd)
-  if (i )
+  if (i)
   ap.bd[counter] <- approx(c(zd.bd[counts.bd],zd.bd[counts.bd+1]),c(ta.bd[counts.bd],ta.bd[counts.bd+1]), i, method="linear",rule = 1, f = 0, ties = mean)$y[1]
   #ap.bd[i]<-approx(as.character(c(zd.bd[i],zd.bd[i+1])),as.character(c(ta.bd[i],ta.bd[i+1])), z[i], method="linear",rule = 1, f = 0, ties = mean)$y[1]
 }
