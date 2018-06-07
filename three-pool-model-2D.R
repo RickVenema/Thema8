@@ -1,6 +1,8 @@
 library(reshape2)
 library(rgl)
 library(colorspace)
+library(plot3D)
+library(shiny)
 out_ar <- array(out_total, dim=c(65,18,60))
 M <- melt(out_ar)
 colors<-rep("black", length(M[,1,]))
@@ -18,5 +20,9 @@ dim(out_ar)
 # (colors[M$value > 15 && M$value < 20] <- colorRampPalette(c( "green"))(sum(M$value > 15 && M$value < 20)))
 # points3d(M, col=colors)
 rotate <- function(x) t(apply(x, 2, rev))
-image(rotate(out_total[,,1]), col=heat.colors(10000), useRaster = TRUE) 
-persp3d(out_total[,,1])
+image(rotate(out_total[,,2]), col=heat.colors(10000), useRaster = TRUE) 
+hist3D(z= out_total[,,4])
+image2D(out_total[,,5])
+
+
+
