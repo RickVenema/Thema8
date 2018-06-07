@@ -56,14 +56,14 @@ bd.mv <- data.frame(zd.bd,ta.bd)
 
 ap.bd <- c()
 
-counter <- 0
+counts.bd <- 0
 
 for (i in z[,1]) {
-  counter <- counter + 1
+  counts.bd <- counts.bd + 1
   z.plus <- abs(i)
-  print(z.plus)
-  print("####")
-  ap.bd[counter] <- approx(as.character(c(zd.bd[i],zd.bd[i+1])),as.character(c(ta.bd[i],ta.bd[i+1])), z[i], method="linear",rule = 1, f = 0, ties = mean)$y[1]
+  print(counts.bd)
+  if (i )
+  ap.bd[counter] <- approx(c(zd.bd[counts.bd],zd.bd[counts.bd+1]),c(ta.bd[counts.bd],ta.bd[counts.bd+1]), i, method="linear",rule = 1, f = 0, ties = mean)$y[1]
   #ap.bd[i]<-approx(as.character(c(zd.bd[i],zd.bd[i+1])),as.character(c(ta.bd[i],ta.bd[i+1])), z[i], method="linear",rule = 1, f = 0, ties = mean)$y[1]
 }
 b.d.df <- data.frame(zd.bd,ta.bd)
