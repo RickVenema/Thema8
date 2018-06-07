@@ -26,26 +26,30 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 # Introduction
-This paper is based around the reproduction of the paper by Cardinal et al. (2018). This paper is about SOC (soil organic carbon) storage. This is the amount of carbon in the soil. The model that is created in that paper contains different models describing the flow of carbon in the soil and trees next to it. 
+This paper is about SOC (soil organic carbon) storage and the improvement of existing models. This is the amount of carbon in the soil. The model that is created in the original paper is describing the flow of carbon in the soil and trees next to the measured points. This original model contains different models from several other papers. The code used in this model is not written very efficiently. It takes too much time to run the model and all the data is hardcoded and thereby not easy adjustable, which is nescesary for a good model to use for simulation of changes of certain values.
+We have requested the code for the model from Remi Ceardinal (author of the paper $papername). We have build the code and tested it on several computers. The first thing we noticed was a very long runningtime (the model contained many if statements and for loops in for loops). Next to that, all the data is entered hardcoded and so it was not suitable for adjusting.
+We decided to rewrite the whole model achieving a much shorter running time and possibilty to use ajustable parameters.
 
 
 
-eerst het onderwerp / probleem (niet vermelden dat we opnieuw doen) verleiden met eerste zin om het te lezen. 2e zin geeft context, probleem. (het versimpelen van bestaand model) doel
+
+---------eerst het onderwerp / probleem (niet vermelden dat we opnieuw doen) verleiden met eerste zin om het te lezen. 2e zin geeft context, probleem. (het versimpelen van bestaand model) doel
 
 Achtergrond 
 waar zijn we mee bezig/wat is gedaan (context)
 
-problemen (voorbereidend op wat je zelf gaat doet)
+problemen (voorbereidend op wat je zelf gaat doen)
 -> studie (dit gaan we doen)
 
 indeling verslag (wat de lezer tegen kan komen)
 
-
-
-waar zijn we mee bezig, uitbreiden, opnieuw doen
-
+\newpage
 # Materials and methods
-To create a valid model, the model must need to account the depth, distance from the tree and the time in years. This can be done with partial differential equations.
+To create a valid model, the model must need to account the depth, distance from the tree and the time in years. This can be done with partial differential equations. The model is based on several other models that are borrowed from other researches.
+First the received code is printed out and piece by piece stripped down to understand what was going on. After this the code had been split up in parts and these have been rewritten
+
+
+/////INSERT IMAGE//////
 
 welke methode gebruik ik wat 
 
@@ -58,7 +62,7 @@ Analyse
 wel in verhaaltje vertellen.
 
 ## The Model
-The model is defined in the paper by Cardinal et al. (2018), this model follows a three pool model. 
+The model is defined in the paper by Cardinael et al. (2018), this model follows a three pool model. 
 
 The fresh organic compound (FOC) difference can be found in formula \ref{eq:deltafoc}.
 \begin{equation} \label{eq:deltafoc}
