@@ -13,7 +13,7 @@ limit_grass=1 # the limit from the three where grass still grows (meter)
 
 ## STEP_DIST
 step_dist=0.1 # the steps by which the model calculates
-
+step_depth = 0.1
 ## DEPTH
 depth = 1.95 # the depth of the model
 
@@ -22,6 +22,11 @@ dz = step_dist # the diference in depth
 
 ## Z
 z= as.data.frame(seq(-0.05,-depth,by=-step_dist)) # creates data frame containing all the time steps
+
+## Defining d
+dist=6.5 # (middle of the agroforestry alley)
+step_dist=0.1 # step difference
+d=as.data.frame(seq(step_dist,dist, by=step_dist))
 
 ## Dt
 Dt=PARAM[4]/10000.
@@ -38,6 +43,8 @@ Dmix<-rep(0,dim(z)[1])
 import_tree_ab=0
 import_tree_be=0
 import_grass_be=0
+import_grass_ab =0
+Input_CR_SPIN<-d[,1]
 import_crop_be= profil_CR_R_SPIN[2:(dim(z)[1]+1),1+1]*Input_CR_SPIN[1]
 
 mr_grass = 1
@@ -48,6 +55,9 @@ mr_tree=2.2 # Mortality rate for the tree, crop and grass roots (year)
 ####
 # Root profile
 ####
+
+####### OLD CODE #####
+
 
 #Roots profil of crop roots (% of the total root mass)
 profil_CR_R<-matrix(ncol=dim(d)[1]+1,nrow=dim(z)[1]+1)
@@ -70,9 +80,25 @@ for (i in 1:dim(z)[1]+1) {
   for (k in 1:dim(d)[1]+1)     {
     if (profil_CR_R[1,k]<=limit_grass) {profil_CR_R[i,k]<-0} # no crop on the tree line
   }
+}		
+
+
+######### NEW CODE ##########
+profil_CR_R<-matrix(ncol=dim(d)[1],nrow=dim(z)[1])
+
+## Formula to calculate profile 26.443*exp((-2.6)*(-z[i-1,1]))
+test <- function(z){
+  return(26.433*exp((-2.6)*(-z))/100)
 }
 
-#############
+profil_CR_R <- test(z)
+
+
+profil_CR_R <- as.data.frame(rep(profil_CR_R, dim(d)[1]))
+colnames(profil_CR_R) <- as.character(d[,1])
+rownames(profil_CR_R) <- as.character(z[,1])
+profil_CR_R[z[,1]<= -1.5,] <- 0
+ #############
 # THE MODEL #
 #############
 modelp3difft <- function(t, initial_state, parms){

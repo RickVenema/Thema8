@@ -61,8 +61,63 @@ Dt = 21.60/10000.
 D_slow = 5.24/10000.
 ```
 
+# 8-6-2018
+The next part I tackled was the crop_be part of the code. This is the carbon input of the tree, grass, and crop. 
+My idea was that it can be different with each situation. But how we could fix it, that its different on each location, is unclear at the moment, I could create a simple model that can be specified to different inputs
+
+To implement this, I first need to understand the code and know what the form of the profile is. If I can implement a type of different input to the model, the model can be used on different locations/situations.
+The model can than be used to an agriculture plot with potatoes for example.
+  
+My first thought is to rewrite the existing input matrixes. The inputs can later be modified to be corrected on the situation.
+If there are different types of input models, the model can be tweaked a lot more. The first thing I tackled was crop input, because that part of input I was interested by the most, because I wanted the model to be 
+able to be used in agriculture research with wheat (future research by me I hope)s
+
+```{r 8-6-18a, eval=F}
+
+######### NEW CODE ##########
+profil_CR_R<-matrix(ncol=dim(d)[1],nrow=dim(z)[1])
+
+## Formula to calculate profile 26.443*exp((-2.6)*(-z[i-1,1]))
+test <- function(z){
+  return(26.433*exp((-2.6)*(-z))/100)
+}
+
+profil_CR_R <- test(z)
 
 
+profil_CR_R <- as.data.frame(rep(profil_CR_R, dim(d)[1]))
+colnames(profil_CR_R) <- as.character(d[,1])
+rownames(profil_CR_R) <- as.character(z[,1])
+profil_CR_R[z[,1]<= -1.5,] <- 0
 
+####### OLD CODE #####
+
+
+#Roots profil of crop roots (% of the total root mass)
+profil_CR_R<-matrix(ncol=dim(d)[1]+1,nrow=dim(z)[1]+1)
+for (i in 1:dim(d)[1]) {profil_CR_R[1,i+1]<-d[i,]}
+for (i in 1:dim(z)[1]) {profil_CR_R[i+1,1]<-z[i,]}
+
+for (j in seq(z[1,1],z[dim(z)[1],1], by=-step_depth)){ 
+  for (i in 1:dim(z)[1]+1) {
+    if (profil_CR_R[i,1]==as.character(j)){
+      for (k in 1:dim(d)[1]+1)     {
+        profil_CR_R[i,k]<-26.443*exp((-2.6)*(-z[i-1,1])) 
+        profil_CR_R[i,k]<-profil_CR_R[i,k]/100 #Conversion from % to proportion
+        if (profil_CR_R[i,1]<limit_root_crop) {profil_CR_R[i,k]<-0} # no more crop roots below 1.5m
+      }
+    }
+  }
+}
+profil_CR_R_SPIN<-profil_CR_R
+for (i in 1:dim(z)[1]+1) {
+  for (k in 1:dim(d)[1]+1)     {
+    if (profil_CR_R[1,k]<=limit_grass) {profil_CR_R[i,k]<-0} # no crop on the tree line
+  }
+}		
+
+```
+
+I have rewritten the input of crop carbon. The old code had too many for loops, this is reduced to none. The build in functions of dataframes can be used to do the same things that Cardinael did with his 7 for loops.
 
 
