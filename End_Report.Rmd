@@ -26,11 +26,14 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 # Introduction
-This paper is about SOC (soil organic carbon) storage and the improvement of existing models. This is the amount of carbon in the soil. The model that is created in the original paper is describing the flow of carbon in the soil and trees next to the measured points. This original model contains different models from several other papers. The code used in this model is not written very efficiently. It takes too much time to run the model and all the data is hardcoded and thereby not easy adjustable, which is nescesary for a good model to use for simulation of changes of certain values.
-We have requested the code for the model from Remi Ceardinal (author of the paper $papername). We have build the code and tested it on several computers. The first thing we noticed was a very long runningtime (the model contained many if statements and for loops in for loops). Next to that, all the data is entered hardcoded and so it was not suitable for adjusting.
+This paper is about SOC (soil organic carbon) storage and the improvement of existing models. The model that is created in the original paper is describing the flow of carbon in the soil and trees next to the measured points. This original model contains different models from several other papers. The code used in this model is not written very efficiently. It takes too much time to run the model and all the data is hardcoded and thereby not easy adjustable, which is nescesary for a good model to use for simulation of changes of certain values.
+We have requested the code for the model from Remi Ceardinal (author of the paper $papername). We have build the code and tested it on several computers. The first thing we noticed was a very long runningtime (the model contained many if statements and for loops in for loops). Next to that, all the data is entered hardcoded and so it was not suitable for adjusting and extending on the model.
 We decided to rewrite the whole model achieving a much shorter running time and possibilty to use ajustable parameters.
+  
+  
+Organic carbon in the soil is very important in good yield of products produced by the soil. A better understanding of organic carbon in the soil can give more insights in improving the yield of agricultural plots. Models for organic carbon storage exists, these models represent an existing plot.
 
-
+This paper extends the SOC (soil organic carbon) storage model by Cardinael et al. This model describes the flow of carbon in an agroforestry plot. The model of Cardinael et al. was however a hardcoded model. To be able to extend the model and use it for different locations, the model has to be improved on to be more versitile and more flexible. This is done by rewriting big parts of the code and making tweaking parameters easier. 
 
 
 ---------eerst het onderwerp / probleem (niet vermelden dat we opnieuw doen) verleiden met eerste zin om het te lezen. 2e zin geeft context, probleem. (het versimpelen van bestaand model) doel
@@ -45,7 +48,7 @@ indeling verslag (wat de lezer tegen kan komen)
 
 \newpage
 # Materials and methods
-To create a valid model, the model must need to account the depth, distance from the tree and the time in years. This can be done with partial differential equations. The model is based on several other models that are borrowed from other researches.
+To create a valid model, the model must need to account the depth, distance from the tree and the time in years. This can be done with partial differential equations. The model is based on several other models that are borrowed   **WE GEBRUIKEN GEEN LENEN HIER** from other researches.
 First the received code is printed out and piece by piece stripped down to understand what was going on. After this the code had been split up in parts and these have been rewritten
 
 
@@ -106,6 +109,7 @@ source(file="three-pool-model.R")
 
 
 grafieken met onderschrift en uitleg over wat er te zien is
+
 # Discussion
 conclusie van het verhaal, hoe was het goed uit te voeren?, waarom niet helemaal belicht, verschil.
 
