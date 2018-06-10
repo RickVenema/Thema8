@@ -49,7 +49,8 @@ time_Agrof_length=seq(1, Agrof_length)
 #The limit from the tree where grass still grow (in meter)
 limit_grass=1
 
-zd.bd <- as.numeric(c(-0.05,-0.20,-0.40,-0.60,-0.85,-1.10,-1.30,-1.50,-1.70,-1.90))
+z <- as.vector(z)
+zd.bd <- c(-0.05,-0.20,-0.40,-0.60,-0.85,-1.10,-1.30,-1.50,-1.70,-1.90)
 ta.bd <- as.numeric(c(1.41,1.61,1.73,1.80,1.74,1.61,1.65,1.65,1.65,1.65))
 
 bd.mv <- data.frame(zd.bd,ta.bd)
@@ -58,12 +59,29 @@ ap.bd <- c()
 
 counts.bd <- 0
 
-for (i in z[,1]) {
+for (i in as.vector(z[,1])) {
   counts.bd <- counts.bd + 1
   z.plus <- abs(i)
+  z.item <- z$`seq(-0.05, -depth, by = -step_depth)`[counts.bd]
+  print("--i ")
+  print(i)
+  print("--counts ")
   print(counts.bd)
-  if (i)
-  ap.bd[counter] <- approx(c(zd.bd[counts.bd],zd.bd[counts.bd+1]),c(ta.bd[counts.bd],ta.bd[counts.bd+1]), i, method="linear",rule = 1, f = 0, ties = mean)$y[1]
+  print("--z item ")
+  print(z.item)
+  pos.of.match <- match(i,zd.bd)
+  print("-pos ")
+  print(pos.of.match)
+  if (!is.na(pos.of.match)) {
+    #Calculate a value
+    print("Not NA!")
+  } else {
+    # Just add a value from the ta.bd vector
+    print("Is NA!")
+  }
+  print("###")
+  print("\n")
+  #ap.bd[counter] <- approx(c(zd.bd[counts.bd],zd.bd[counts.bd+1]),c(ta.bd[counts.bd],ta.bd[counts.bd+1]), i, method="linear",rule = 1, f = 0, ties = mean)$y[1]
   #ap.bd[i]<-approx(as.character(c(zd.bd[i],zd.bd[i+1])),as.character(c(ta.bd[i],ta.bd[i+1])), z[i], method="linear",rule = 1, f = 0, ties = mean)$y[1]
 }
 b.d.df <- data.frame(zd.bd,ta.bd)
