@@ -9,8 +9,6 @@
 ## IDIOT PARAM VAR
 PARAM <-  c(0.01, 0.83, 5.24, 21.60, 0.34, 0.99, 0.94)
 
-
-
 ## LIMIT_GRASS
 limit_grass=1 # the limit from the three where grass still grows (meter)
 
