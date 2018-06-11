@@ -1,0 +1,82 @@
+---
+title: "Improving on SOC storage models "
+author: "**Rick Venema**"
+date: "`r Sys.Date()`"
+
+output: 
+  pdf_document:
+    toc: False
+    number_sections: True
+    pandoc_args: [
+      "-V", "classoption=twocolumn"
+    ]
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+\begin{abstract}
+   SOC storage models can give better insights in the amount of carbon in the soil. Existing models are not versatile. Existing models were changed to make them usable for further work with the models. Eventually a lot of the model could be simplified, there were however parts that could not be simplified. We used the model from Cardinael et al. 2018\cite{Cardinael18}. This model represents the SOC storage
+\end{abstract}
+
+***
+
+# Introduction
+Organic carbon in the soil is very important in good yield of products produced by the soil. A better understanding of organic carbon in the soil can give more insights in improving the yield of agricultural plots. Models for organic carbon storage exists, these models represent an existing agroforestry plot.
+This paper extends the SOC (soil organic carbon) storage model by Cardinael et al. This model describes the flow of carbon in an agroforestry plot. The model of Cardinael et al 2018\cite{Cardinael18}. was however a hardcoded model. To be able to extend the model and use it for different locations, the model has to be improved on to be more versatile and more flexible. This is done by rewriting big parts of the code and making tweaking parameters easier. 
+
+# Methods
+
+## The model
+The model is defined in the paper by Cardinael et al. (2018), this model follows a three pool model. 
+
+The fresh organic compound (FOC) difference can be found in formula \ref{eq:deltafoc}.
+
+\begin{equation} \label{eq:deltafoc}\
+\begin{aligned}
+\frac{\delta FOC_{t,z,d}}{\delta t} = I_{t,z,d} + \frac{\delta F_{AD}}{\delta z} + h * f_{2}* dec\_HSOC_{t,z,d} \\ + h *dec\_HSOC2_{tzd} - dec\_FOC_{t,z,d} 
+\end{aligned}
+\end{equation}
+
+LORUM
+
+\begin{equation} \label{eq:deltahsoc1}
+ \frac{\delta HSOC1}{\delta t} = \frac{\delta F_{AD}}{\delta z} + h * f_{1} * dec\_FOC_{t,z,d} - dec\_HSOC1_{t,z,d}
+\end{equation}
+
+LORUM
+
+\begin{equation} \label{eq:deltahsoc2}
+\begin{aligned}
+  \frac{\delta HSOC2}{\delta t} = \frac{\delta F_{AD}}{\delta z} + h * (1-f_{1} * dec\_FOC_{t,z,d} \\  + h *(1-f_{2})*dec\_HSOC1_{t,z,d} - dec\_HSOC2_{t,z,d}
+\end{aligned}
+\end{equation}
+
+
+# Results
+
+
+grafieken met onderschrift en uitleg over wat er te zien is
+
+
+# Discussion
+
+
+
+conclusie van het verhaal, hoe was het goed uit te voeren?, waarom niet helemaal belicht, verschil.
+
+
+# Conclusion
+
+\begin{thebibliography}{9}
+
+\bibitem{Cardinael18}
+Cardinael, R., Guenet, B., Chevallier, T., Dupraz, C., Cozzi, T., and Chenu, C.: \textit{High organic imputs explain shallow and deep SOC storage in a long-term agroforestry system - combining experimental and modeling approaches}, Biogeosciences, 15, 297-317, https://di.org/10.5194/bg-15-297-2018, 2018.
+
+\bibitem{Soertaert10} 
+Soetaert, K., Petzoldt, T., and Woodrow Setzer, R.: \textit{Solving differential equations in R: package deSolve}, J. Stat. Softw., 33, 1-25, 2010.
+
+\end{thebibliography}
+
+
