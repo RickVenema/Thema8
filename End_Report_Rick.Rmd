@@ -31,7 +31,7 @@ This paper extends the SOC (soil organic carbon) storage model by Cardinael et a
 ## The model
 The model is defined in the paper by Cardinael et al. (2018), this model follows a three pool model. 
 
-The fresh organic compound (FOC) difference can be found in formula \ref{eq:deltafoc}.
+The fresh organic compound (FOC) difference can be found in formula \ref{eq:deltafoc}. This formula calculates the difference of FOC. This is calculated by using the input of carbon, given by $I_{t,z,d}$. This is calculated by adding all the imports from the different environmental inputs (Tree, Grass, and Crop). 
 
 \begin{equation} \label{eq:deltafoc}\
 \begin{aligned}
@@ -39,7 +39,22 @@ The fresh organic compound (FOC) difference can be found in formula \ref{eq:delt
 \end{aligned}
 \end{equation}
 
-LORUM
+The $\frac{\delta F_{AD}}{\delta z}$ parameter in formula \ref{eq:deltafoc} corresponds to the flux of carbon in the soil that is transported downwards. This flux is given by formula \ref{eq:FAD}.
+
+\begin{equation} \label{eq:FAD}
+  F_{AD} = F_{A} + F_{D}
+\end{equation}
+
+In formula \ref{eq:FAD} the $F_{D}$ corresponds to Fick's law. This law is represented by formula \ref{eq:fick}.
+
+\begin{equation} \label{eq:fick}
+  F_{D} = -D * \frac{\delta ^2 C}{\delta z^2}
+\end{equation}
+
+The $F_{A}$ parameter in \ref{eq:FAD} represents the advection. This represents the flow of C in the soil. This is given by formula \ref{eq:advec}
+\begin{equation} \label{eq:advec}
+  F_{A} = A * C
+\end{equation}
 
 \begin{equation} \label{eq:deltahsoc1}
  \frac{\delta HSOC1}{\delta t} = \frac{\delta F_{AD}}{\delta z} + h * f_{1} * dec\_FOC_{t,z,d} - dec\_HSOC1_{t,z,d}
@@ -53,15 +68,18 @@ LORUM
 \end{aligned}
 \end{equation}
 
+## Adaptations to the model
+The model has not been changed itself, it changed in efficiency and adaptivity. The model was only suited for the specific plot where the model was based on. This resulted in a hardcoded model. To be able to use the model, it needs to be rewritten. After rewriting the model, it can be adapted to include other models. 
+
 
 # Results
-
+After looking at the model, the parameters were moved to a separate file, like the Moyano et al. YEAR model. This model was used to calculate the moist in the clay. 
 
 grafieken met onderschrift en uitleg over wat er te zien is
 
 
 # Discussion
-
+The model by Cardinael et al. 2018 \cite{Cardinael18} was a hard model to rewrite, the model contained a lot of if statements that were not even executed because they would never occur. Of the 42 lines of code, only 22 were useful. 
 
 
 conclusie van het verhaal, hoe was het goed uit te voeren?, waarom niet helemaal belicht, verschil.
