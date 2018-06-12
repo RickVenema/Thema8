@@ -10,6 +10,8 @@ output:
     pandoc_args: [
       "-V", "classoption=twocolumn"
     ]
+header-includes:
+  - \usepackage{multicol}
 ---
 
 ```{r setup, include=FALSE}
@@ -17,14 +19,14 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 \begin{abstract}
-   SOC storage models can give better insights in the amount of carbon in the soil. Existing models are not versatile. Existing models were changed to make them usable for further work with the models. Eventually a lot of the model could be simplified, there were however parts that could not be simplified. We used the model from Cardinael et al. 2018\cite{Cardinael18}. This model represents the SOC storage
+   SOC storage models can give better insights in the amount of carbon in the soil. Existing models are not versatile. Existing models were changed to make them usable for further work with the models. Eventually a lot of the model could be simplified, there were however parts that could not be simplified. We used the model from Cardinael et al. 2018\cite{Cardinael18}. This model represents the SOC storage in the soil. The model was taken apart and the parts were examined to understand the code and what it does. The first idea was to add a nitrogen model to the code, this was however not possible due to the hard 
 \end{abstract}
 
 ***
 
 # Introduction
 Organic carbon in the soil is very important in good yield of products produced by the soil. A better understanding of organic carbon in the soil can give more insights in improving the yield of agricultural plots. Models for organic carbon storage exists, these models represent an existing agroforestry plot.
-This paper extends the SOC (soil organic carbon) storage model by Cardinael et al. This model describes the flow of carbon in an agroforestry plot. The model of Cardinael et al 2018\cite{Cardinael18}. was however a hardcoded model. To be able to extend the model and use it for different locations, the model has to be improved on to be more versatile and more flexible. This is done by rewriting big parts of the code and making tweaking parameters easier. 
+This paper extends the SOC (soil organic carbon) storage model by Cardinael et al. This model describes the flow of carbon in an agroforestry plot. The model of Cardinael et al 2018\cite{Cardinael18}. was however a hardcoded model. To be able to extend the model and use it for different locations, the model has to be improved on to be more versatile and more flexible. This can be done by rewriting big parts of the code and making tweaking parameters easier. 
 
 # Methods
 
@@ -68,24 +70,37 @@ LORUM
 \end{aligned}
 \end{equation}
 
-## Adaptations to the model
-The model has not been changed itself, it changed in efficiency and adaptivity. The model was only suited for the specific plot where the model was based on. This resulted in a hardcoded model. To be able to use the model, it needs to be rewritten. After rewriting the model, it can be adapted to include other models. 
+## Understanding the model
+The model was taken apart for better understanding of the code and its functions. The model was divided into several parts which each correspond to a parameter or group of parameters
+
+wat gedaan met code 
 
 
 # Results
-After looking at the model, the parameters were moved to a separate file, like the Moyano et al. YEAR model. This model was used to calculate the moist in the clay. 
+The code was after looking at the code divided into X parts. 
+
+## Bulk density
+if statements
+
+## Moyano et al. model
+After looking at the model, the parameters were moved to a separate file, like the model by Moyano et al. 2012\cite{Moyano12}. This model was used to calculate the moist in the clay. 
 
 grafieken met onderschrift en uitleg over wat er te zien is
 
+## SOC stocks
+
+## Roots profile
+
 
 # Discussion
-The model by Cardinael et al. 2018 \cite{Cardinael18} was a hard model to rewrite, the model contained a lot of if statements that were not even executed because they would never occur. Of the 42 lines of code, only 22 were useful. 
+The model by Cardinael et al. 2018 \cite{Cardinael18} was a hard model to rewrite. This was eventually not done due to time issues. 
 
 
-conclusie van het verhaal, hoe was het goed uit te voeren?, waarom niet helemaal belicht, verschil.
+ conclusie van het verhaal, hoe was het goed uit te voeren?, waarom niet helemaal belicht, verschil.
 
 
 # Conclusion
+WAT NU VERDER
 
 \begin{thebibliography}{9}
 
@@ -94,6 +109,9 @@ Cardinael, R., Guenet, B., Chevallier, T., Dupraz, C., Cozzi, T., and Chenu, C.:
 
 \bibitem{Soertaert10} 
 Soetaert, K., Petzoldt, T., and Woodrow Setzer, R.: \textit{Solving differential equations in R: package deSolve}, J. Stat. Softw., 33, 1-25, 2010.
+
+\bibitem{Moyano12}
+Moyano, F. E., Vasilyeva, N., Bouckaert, L., Cook, F., Craine, J., Curiel Yuste, J., Don, A., Epron, D., Formanek, P., Franzluebbers, A., Ilstedt, U., Kätterer, T., Orchard, V., Reichstein, M., Rey, A., Ruamps, L., Subke, J.-A., Thomsen, I. K., and Chenu, C.:\textit{ The moisture response of soil heterotrophic respiration: interaction with soil properties}, Biogeosciences, 9, 1173-1182, https://doi.org/10.5194/bg-9-1173-2012, 2012.
 
 \end{thebibliography}
 
