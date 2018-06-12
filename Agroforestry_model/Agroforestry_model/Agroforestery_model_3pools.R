@@ -721,7 +721,7 @@ for (j in seq(z[1,1],z[dim(z)[1],1], by=-step_depth)){
 }		                            
 
 
-23  
+ 
 
 #Roots profil of crop roots (% of the total root mass)
 profil_CR_R<-matrix(ncol=dim(d)[1]+1,nrow=dim(z)[1]+1)

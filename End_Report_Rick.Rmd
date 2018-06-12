@@ -1,6 +1,6 @@
 ---
 title: "Improving on SOC storage models "
-author: "**Rick Venema & Bas Kasemir**"
+author: "**Rick Venema**"
 date: "`r Sys.Date()`"
 
 output: 
