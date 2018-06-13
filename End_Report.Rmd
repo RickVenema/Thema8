@@ -102,7 +102,6 @@ grafieken met onderschrift en uitleg over wat er te zien is
 ## Roots profile
 
 
-
 # Discussion
 
 The model by Cardinael et al. 2018 \cite{Cardinael18} was a hard model to rewrite. This was eventually not done due to time issues. The code was taken apart en examined and we understand it completely. We wanted to add a nitrogen model to the model to extend the existing model to be more versatile and be able to tell more about the soil. This was not done, due to the hard coded model that we took apart. After trying to rewrite the model we came across the limit of time. This low amount of time resulted into the fact that we were not able to rewrite the model. When we found out that we wouldn't be able to rewrite it in time, we decided to take apart the code completely and making further research easier. This was due to the fact that the model was not suited for extending with other models. 
