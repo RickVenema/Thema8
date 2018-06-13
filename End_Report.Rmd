@@ -13,16 +13,9 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
-# \begin{@twocolumnfalse}
-# 
-# \end{@twocolumnfalse}
-# pandoc_args: [
-    #   "-V", "classoption=twocolumn"
-    # ]
 ```
 \begin{abstract}
-SOC storage models can give better insights in the amount of carbon in the soil. Existing models are not versatile. Existing models were examined to make them usable for further work with the models. Eventually a lot of the model could be simplified, there were however parts that could not be simplified. We used the model from Cardinael et al. 2018\cite{Cardinael18}. This model represents the SOC storage in the soil. The model was taken apart and the parts were examined to understand the code and what it does. The first idea was to add a nitrogen model to the code, this was however not possible due to the hard coded model. After trying to rewrite parts of the code, the factor time came across our path. 
- 
+SOC storage models can give better insights in the amount of carbon in the soil. Existing models are not versatile. Existing models were examined to make them usable for further work with the models. Eventually a lot of the model could be simplified, there were however parts that could not be simplified. We used the model from Cardinael et al. (2018)\cite{Cardinael18}. This model represents the SOC storage in the soil. The model was taken apart and the parts were examined to understand the code and what it does. The first idea was to add a nitrogen model to the code, this was however not possible due to the hard coded model. After trying to rewrite parts of the code, the factor time came across our path. This paper only gives a better insight at the model from Cardinael et al. (2018)\cite{Cardinael18}. Only a full understanding of this model can give better insights in how the model could be processed to be more efficient and versatile for use in other applications. The possibilities are available, the only obstacle is making models suited for combining. After a complete versatile model is created, we can reduce costs in agriculture by a huge amount, this is because the amount of fertilizer can be tweaked to the exact needs of the soil.
 
 \end{abstract}
 ***
@@ -40,7 +33,7 @@ A lot of fertilizer is used every year by farmers all around the globe, this can
 
 ## The model
 
-The model is defined in the paper by Cardinael et al. (2018), this model follows a three pool model. This three pool model is based on an existing 2 pool model from Guenet et al. \cite{Guenet13}.
+The model is defined in the paper by Cardinael et al. (2018), this model follows a three pool model. This three pool model is based on an existing 2 pool model from Guenet et al. (2013)\cite{Guenet13}.
 
 The fresh organic compound (FOC) difference can be found in formula \ref{eq:deltafoc}. This formula calculates the difference of FOC. This is calculated by using the input of carbon, given by $I_{t,z,d}$. This is calculated by adding all the imports from the different environmental inputs (Tree, Grass, and Crop). The parameter $f_{2}$ in formula \ref{eq:deltafoc} gives the fraction of decomposed Humified Soil Organic Carbon (HSOC) that enters the FOC pool.
 
@@ -50,28 +43,33 @@ The fresh organic compound (FOC) difference can be found in formula \ref{eq:delt
 \end{aligned}
 \end{equation}
 
-The $\frac{\delta F_{AD}}{\delta z}$ parameter in formula \ref{eq:deltafoc} corresponds to the flux of carbon in the soil that is transported downwards. This flux is given by formula \ref{eq:FAD}. In formulas \ref{eq:deltafoc}, \ref{eq:deltahsoc1}, and \ref{eq:deltahsoc2}, $h$ represents the fraction that is humified. 
+The $\frac{\delta F_{AD}}{\delta z}$ parameter in formula \ref{eq:deltafoc} corresponds to the flux of carbon in the soil that is transported downwards. This flux is given by formula \ref{eq:FAD}. In formulas \ref{eq:deltafoc}, \ref{eq:deltahsoc1}, and \ref{eq:deltahsoc2}, $h$ represents the fraction that is humified. This mechanism was developed by Elzein and Balesdent(1995)\cite{ElzBa95}.
 
 \begin{equation} \label{eq:FAD}
   F_{AD} = F_{A} + F_{D}
 \end{equation}
 
-In formula \ref{eq:FAD} the $F_{D}$ corresponds to Fick's law. This law is represented by formula \ref{eq:fick}.
+In formula \ref{eq:FAD} the $F_{D}$ corresponds to Fick's law. This law is represented by formula \ref{eq:fick}. In the model by Cardinael et al. \ref{Cardinael18} the tillage level is also taken into account by the use of Fick's law. This tillage level is set on depth upto 0.2 meters. This is due to the usage of agricultural machinery that mixes the top layer of the soil. 
 
 \begin{equation} \label{eq:fick}
   F_{D} = -D * \frac{\delta ^2 C}{\delta z^2}
 \end{equation}
 
-The $F_{A}$ parameter in \ref{eq:FAD} represents the advection. This represents the flow of C in the soil. This is given by formula \ref{eq:advec}
+The $F_{A}$ parameter in \ref{eq:FAD} represents the advection. This represents the flow of C in the soil. This is given by formula \ref{eq:advec}.
+
 \begin{equation} \label{eq:advec}
   F_{A} = A * C
 \end{equation}
+
+The A parameters in formula \ref{eq:advec} represents the advection rate in mm per year. 
+Formula \ref{eq:deltahsoc1} gives the difference in humified soil organic carbon (HSOC). This is calculated by using the flux described in formula \ref{eq:fick}.
 
 \begin{equation} \label{eq:deltahsoc1}
  \frac{\delta HSOC1}{\delta t} = \frac{\delta F_{AD}}{\delta z} + h * f_{1} * dec\_FOC_{t,z,d} - dec\_HSOC1_{t,z,d}
 \end{equation}
 
-Formula \ref{eq:deltahsoc1} gives the difference in humified soil organic carbon (HSOC). This is calculated by using the flux described in formula \ref{eq:fick}.
+Formula \ref{eq:deltahsoc2} gives the difference in the second HSOC pool in the model. The difference between formula \ref{eq:deltahsoc2} and formula \ref{eq:deltahsoc1} is the fact that in formula \ref{eq:deltahsoc2} the $dec\_HSOC2_{t,z,d}$ is substracted from $dec\_HSOC1_{t,z,d}$
+
 
 \begin{equation} \label{eq:deltahsoc2}
 \begin{aligned}
@@ -135,6 +133,9 @@ Moyano, F. E., Vasilyeva, N., Bouckaert, L., Cook, F., Craine, J., Curiel Yuste,
 
 \bibitem{Guenet13}
 Guenet, B., Eglin, T., Vasilyeva, N., Peylin, P., Ciais, P., and Chenu, C.: \textit{The relative importance of decomposition and transport mechanisms in accounting for soil organic carbon pro???les}, Biogeosciences, 10, 2379-2392, https://doi.org/10.5194/bg-102379-2013, 2013.
+
+\bibitem{ElzBa95}
+Elzein, A. and Balesdent, J.:\textit{Mechanistic simulation of vertical distribution of carbon concentrations and residence times in soils}, Soil Sci. Soc. Am. J., 59, 1328-1335, 1995.
 \end{thebibliography}
 \onecolumn
 
