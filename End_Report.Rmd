@@ -86,9 +86,7 @@ The model was taken apart for better understanding of the code and its functions
 
 The code was after looking at the code divided into X parts. 
 
-
 ## Bulk density
-
 
 if statements
 
@@ -98,22 +96,11 @@ After looking at the model, the parameters were moved to a separate file, like t
 
 grafieken met onderschrift en uitleg over wat er te zien is
 
-## SOC stocks -BASThi
-The model for the SOC stocks is obtained from Cardinael et al., 2015 Geoderma\cite{CardinaelGeoderma}. This model initalizes some values, such as a matrix with values of the clay, and generates a sequence for the humufied layer. It gets also a value from the moyano model: the moist in the clay.
+## SOC stocks
 
-
-for each depth the items in the sequence the model calcualtes the moisture function. This is done for the control, the tree line and the inner row. if the moisture function is higher than 1. the moisture function is set to 1. 
-After this the Diameter at breast height (DBH) is calculated. The 
--- berekent startwaarden voor hoeveelheid koolstof in de grond
--- berekent hoeveel koolstof in de grond komt
--- berekent hoeveel koolstof uit de grond gaat
-=======
 
 ## Roots profile
--- Maaak matrix aan
--- bereken de waarden van wortels op een bepaald punt
--- als de waarde onder een bepaalde drempel komt, verwijder ze gewoon
--- zet anders de waarde in de matrix
+
 
 
 # Discussion
@@ -136,14 +123,11 @@ This model can open up paths to modeling complete agricultural plots with their 
 \bibitem{Cardinael18}
 Cardinael, R., Guenet, B., Chevallier, T., Dupraz, C., Cozzi, T., and Chenu, C.: \textit{High organic imputs explain shallow and deep SOC storage in a long-term agroforestry system - combining experimental and modeling approaches}, Biogeosciences, 15, 297-317, https://di.org/10.5194/bg-15-297-2018, 2018.
 
-\bibitem{CardinaelGeoderma}
-Cardinael, Rémi & Chevallier, Tiphaine & Barthès, B & Saby, Nicolas & Parent, Théophile & Dupraz, Christian & Bernoux, Martial & Chenu, Claire. (2015). Impact of alley cropping agroforestry on stocks, forms and spatial distribution of soil organic carbon — A case study in a Mediterranean context. Geoderma. 259-260. 288-299. 10.1016/j.geoderma.2015.06.015. 
-
 \bibitem{Soertaert10} 
 Soetaert, K., Petzoldt, T., and Woodrow Setzer, R.: \textit{Solving differential equations in R: package deSolve}, J. Stat. Softw., 33, 1-25, 2010.
 
 \bibitem{Moyano12}
-Moyano, F. E., Vasilyeva, N., Bouckaert, L., Cook, F., Craine, J., Curiel Yuste, J., Don, A., Epron, D., Formanek, P., Franzluebbers, A., Ilstedt, U., K?tterer, T., Orchard, V., Reichstein, M., Rey, A., Ruamps, L., Subke, J.-A., Thomsen, I. K., and Chenu, C.:\textit{ The moisture response of soil heterotrophic respiration: interaction with soil properties}, Biogeosciences, 9, 1173-1182, https://doi.org/10.5194/bg-9-1173-2012, 2012.
+Moyano, F. E., Vasilyeva, N., Bouckaert, L., Cook, F., Craine, J., Curiel Yuste, J., Don, A., Epron, D., Formanek, P., Franzluebbers, A., Ilstedt, U., K???tterer, T., Orchard, V., Reichstein, M., Rey, A., Ruamps, L., Subke, J.-A., Thomsen, I. K., and Chenu, C.:\textit{ The moisture response of soil heterotrophic respiration: interaction with soil properties}, Biogeosciences, 9, 1173-1182, https://doi.org/10.5194/bg-9-1173-2012, 2012.
 
 \bibitem{Guenet13}
 Guenet, B., Eglin, T., Vasilyeva, N., Peylin, P., Ciais, P., and Chenu, C.: \textit{The relative importance of decomposition and transport mechanisms in accounting for soil organic carbon pro???les}, Biogeosciences, 10, 2379-2392, https://doi.org/10.5194/bg-102379-2013, 2013.
