@@ -19,10 +19,10 @@ SOC storage models can give better insights in the amount of carbon in the soil.
 \end{abstract}
 
 ***
+
 \twocolumn
 
 # Introduction
-
 Organic carbon in the soil is very important in good yield of products produced by the soil. A better understanding of organic carbon in the soil can give more insights in improving the yield of agricultural plots. Models for organic carbon storage exists, these models represent an existing agroforestry plot.
 This paper extends the SOC (soil organic carbon) storage model by Cardinael et al.\cite{Cardinael18}. This model describes the flow of carbon in an agroforestry plot. The model of Cardinael et al 2018\cite{Cardinael18}. was however a hardcoded model. To be able to extend the model and use it for different locations, the model has to be improved on to be more versatile and more flexible. This can be done by rewriting big parts of the code and making tweaking parameters easier. The model used in this paper is based on the SOC storage in an agroforestry plot. When adapting this model it can be used more in normal agriculture. 
   
@@ -87,20 +87,17 @@ The code was after looking at the code divided into X parts.
 ## Bulk density
 The bulk density model is obtained from Cardinael et al., 2015 Geoderma \cite{CardinaelGeoderma} . In this model the measured values are expanded. This is done by a for loop that iterates over all the depths. The measured bulk density values are added to a new dataframe that already have the depths in it. for the measured values there is a if statement that kools if the iteration is at the depth of a measured bulk density. If so, the bulk denisty is added to the dataframe. 
 After adding the measured bulk densities to the corresponding depths in the dataframe, the bulk density for every other depth is interpolated. An if statement checks if the iteration is at a specifik depth and the interpolation is done using the r ```approx()``` function. This function contains several hardcoded parameters that are corresponding to a certain depth.
-if statements
 
 ## Moyano et al. model
 After looking at the model, the parameters were moved to a separate file, like the model by Moyano et al. 2012\cite{Moyano12}. This model was used to calculate the moist in the clay. 
 
-grafieken met onderschrift en uitleg over wat er te zien is
-
-## SOC stocks -BAS
+## SOC stocks
 The model for the SOC stocks is obtained from Cardinael et al., 2015 Geoderma\cite{CardinaelGeoderma}. This model initalizes some values, such as a matrix with values of the clay, and generates a sequence for the humufied layer. It also gets a value from the moyano model: the moist in the clay.
 
 For each depth, the items in the sequence, the model calcualtes the moisture function. This is done for the control, the tree line and the inner row. if the moisture function is higher than 1. the moisture function is set to 1. 
 After this the Diameter at breast height (DBH) is calculated. Next, the yield values for the wheat in the controlgroup is set. For the other groups, the yield is calculated. After this calculation, some mortality parameters are set. These parameters are then used in the equotations to calculate the amount of carbon that is coming to the soil in a certain timespan. This input is calculated for the top layer of the soil aswell for the belowgrounds layers. The amount of carbon that is picked up by the tree's roots is also calculated.
 
-## Roots profile -BAS
+## Roots profile
 The model for the roots profile is obtained from another study: Cardinael et al. 2015 Plant and Soil \cite{CardinaelRoot}.
 For the roots profile, at first there is created a matrix. This matrix contains the depths and the distances. 
 -- Maaak matrix aan
@@ -111,17 +108,18 @@ For the roots profile, at first there is created a matrix. This matrix contains 
 # Discussion
 
 The model by Cardinael et al. 2018 \cite{Cardinael18} was a hard model to rewrite. This was eventually not done due to time issues. The code was taken apart en examined and we understand it completely. We wanted to add a nitrogen model to the model to extend the existing model to be more versatile and be able to tell more about the soil. This was not done, due to the hard coded model that we took apart. After trying to rewrite the model we came across the limit of time. This low amount of time resulted into the fact that we were not able to rewrite the model. When we found out that we wouldn't be able to rewrite it in time, we decided to take apart the code completely and making further research easier. This was due to the fact that the model was not suited for extending with other models. 
-  
+
+The roots profile part of the model can be rewritten into a better code chunk. The 5 for loops can be rewritten into a lot less lines with more efficiency. 
+
 The model can be eventually used in different and expanding studies. The model is very interesting because a lot of soil data is collected yearly and can be used to give a better understanding of the needs of the agricultural plot. When adding a nitrogen model, the model can be used in more situations and give better insights in the status of the agricultural plot. There are a lot of different soil models that can be combined with the SOC model, these are for example, the phosphate model, the potassium model, and salt models. 
-
-
- conclusie van het verhaal, hoe was het goed uit te voeren?, waarom niet helemaal belicht, verschil.
-
 
 # Conclusion
 The model gives a good indication what is possible with modeling resources available in the soi, however this model only gives the carbon and is only a representation of the plots used in Cardinael et al. \cite{Cardinael18}. After understanding the model the problems of the model where highlighted to make adapting this model easier. This model gives a good indication what is possible but can not be used directly to contain more resources available in the soil. 
   
 This model can open up paths to modeling complete agricultural plots with their resources. These resources are important in understanding and bettering yield of the crops. A lot of fertilizer is used in agriculture, with understanding the needs of the soil, we can use our fertilizers more responsive and will reduce the impact of fertilizer on the ecosystem. 
+
+
+
 
 \begin{thebibliography}{9}
 
@@ -146,11 +144,54 @@ Guenet, B., Eglin, T., Vasilyeva, N., Peylin, P., Ciais, P., and Chenu, C.: \tex
 \bibitem{ElzBa95}
 Elzein, A. and Balesdent, J.:\textit{Mechanistic simulation of vertical distribution of carbon concentrations and residence times in soils}, Soil Sci. Soc. Am. J., 59, 1328-1335, 1995.
 \end{thebibliography}
+
 \onecolumn
 
+# Appendix
+## Roots profile
+```{r 8-6-18a, eval=F}
+
+######### NEW CODE ##########
+profil_CR_R<-matrix(ncol=dim(d)[1],nrow=dim(z)[1])
+
+## Formula to calculate profile 26.443*exp((-2.6)*(-z[i-1,1]))
+create_crop_profile <- function(z){
+  return(26.433*exp((-2.6)*(-z))/100)
+}
+
+profil_CR_R <- create_crop_profile(z)
+profil_CR_R <- as.data.frame(rep(profil_CR_R, dim(d)[1]))
+colnames(profil_CR_R) <- as.character(d[,1])
+rownames(profil_CR_R) <- as.character(z[,1])
+profil_CR_R[z[,1]<= -1.5,] <- 0
+rofil_CR_R_SPIN<-profil_CR_R
+####### OLD CODE #####
 
 
+#Roots profil of crop roots (% of the total root mass)
+profil_CR_R<-matrix(ncol=dim(d)[1]+1,nrow=dim(z)[1]+1)
+for (i in 1:dim(d)[1]) {profil_CR_R[1,i+1]<-d[i,]}
+for (i in 1:dim(z)[1]) {profil_CR_R[i+1,1]<-z[i,]}
 
+for (j in seq(z[1,1],z[dim(z)[1],1], by=-step_depth)){ 
+  for (i in 1:dim(z)[1]+1) {
+    if (profil_CR_R[i,1]==as.character(j)){
+      for (k in 1:dim(d)[1]+1)     {
+        profil_CR_R[i,k]<-26.443*exp((-2.6)*(-z[i-1,1])) 
+        profil_CR_R[i,k]<-profil_CR_R[i,k]/100 #Conversion from % to proportion
+        if (profil_CR_R[i,1]<limit_root_crop) {profil_CR_R[i,k]<-0} # no more crop roots below 1.5m
+      }
+    }
+  }
+}
+profil_CR_R_SPIN<-profil_CR_R
+for (i in 1:dim(z)[1]+1) {
+  for (k in 1:dim(d)[1]+1)     {
+    if (profil_CR_R[1,k]<=limit_grass) {profil_CR_R[i,k]<-0} # no crop on the tree line
+  }
+}		
+
+```
 
 
 
