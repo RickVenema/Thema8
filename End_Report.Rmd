@@ -15,7 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```
 \begin{abstract}
-SOC storage models can give better insights in the amount of carbon in the soil. Existing models are not versatile. Existing models were examined to make them usable for further work with the models. Eventually a lot of the model could be simplified, there were however parts that could not be simplified. We used the model from Cardinael et al. (2018)\cite{Cardinael18}. This model represents the SOC storage in the soil. The model was taken apart and the parts were examined to understand the code and what it does. The first idea was to add a nitrogen model to the code, this was however not possible due to the hard coded model. After trying to rewrite parts of the code, the factor time came across our path. This paper only gives a better insight at the model from Cardinael et al. (2018)\cite{Cardinael18}. Only a full understanding of this model can give better insights in how the model could be processed to be more efficient and versatile for use in other applications. The possibilities are available, the only obstacle is making models suited for combining. After a complete versatile model is created, we can reduce costs in agriculture by a huge amount, this is because the amount of fertilizer can be tweaked to the exact needs of the soil.
+SOC storage models can give better insights in the amount of carbon in the soil. Existing models are not versatile. These existing models were examined to make them usable for further work with the models. Eventually a lot of the models could be simplified, there were however parts that could not be simplified. We used the model from Cardinael et al. (2018)\cite{Cardinael18}. This model represents the SOC storage in the soil. The model was taken apart and the parts were examined to understand the code and what it does. The first idea was to add a nitrogen model to the code, this was however not possible due to the hard coded model. After trying to rewrite parts of the code, the factor time came across our path. This paper only gives a better insight at the model from Cardinael et al. (2018)\cite{Cardinael18}. Only a full understanding of this model can give better insights in how the model could be processed to be more efficient and versatile for use in other applications. The possibilities are available, the only obstacle is making models suited for combining. After a complete versatile model is created, we can reduce costs in agriculture by a huge amount. This is because the amount of fertilizer can be tweaked to the exact needs of the soil.
 \end{abstract}
 
 ***
@@ -24,16 +24,16 @@ SOC storage models can give better insights in the amount of carbon in the soil.
 
 # Introduction
 Organic carbon in the soil is very important in good yield of products produced by the soil. A better understanding of organic carbon in the soil can give more insights in improving the yield of agricultural plots. Models for organic carbon storage exists, these models represent an existing agroforestry plot.
-This paper extends the SOC (soil organic carbon) storage model by Cardinael et al.\cite{Cardinael18}. This model describes the flow of carbon in an agroforestry plot. The model of Cardinael et al 2018\cite{Cardinael18}. was however a hardcoded model. To be able to extend the model and use it for different locations, the model has to be improved on to be more versatile and more flexible. This can be done by rewriting big parts of the code and making tweaking parameters easier. The model used in this paper is based on the SOC storage in an agroforestry plot. When adapting this model it can be used more in normal agriculture. 
+This paper extends the SOC (soil organic carbon) storage model by Cardinael et al.\cite{Cardinael18}. This model describes the flow of carbon in an agroforestry plot. The model of Cardinael et al. 2018\cite{Cardinael18} was however a hardcoded model. To be able to extend the model and use it for different locations, the model has to be improved on to be more versatile and more flexible. This can be done by rewriting big parts of the code and making tweaking parameters easier. The model used in this paper is based on the SOC storage in an agroforestry plot. When adapting this model it can be used more in normal agriculture. 
   
-A lot of fertilizer is used every year by farmers all around the globe, this can be reduced if the understanding the needs of the soil increases. This fertilizer is used because the yields of the agricultural plots will otherwise decrease. Efficient use of fertilizer can also give an increased yield, this is useful because with the growing world population, every mouth needs to be fed. This can only be done if we understand the soil better and can adjust the yield to be higher. The SOC storage model by Cardinael et al.\cite{Cardinael18} gives insights that models can be created based around the soil nutrients, this can be further developed to create more models based around nutrients in the soil. These models combined can give new insights for farmers to have better yields..
+A lot of fertilizer is used every year by farmers all around the globe. This can be reduced if the understanding the needs of the soil increases. This fertilizer is used because the yields of the agricultural plots will otherwise decrease. Efficient use of fertilizer can also give an increased yield, this is useful because with the growing world population, every mouth needs to be fed. This can only be done if we understand the soil better and can increase the yield to be higher. The SOC storage model by Cardinael et al. 2018\cite{Cardinael18} gives insights that models can be created based around the soil nutrients, this can be further developed to create more models based around nutrients in the soil. These models combined can give new insights for farmers to have better yields.
 
 # Methods
 ## The model
 
-The model is defined in the paper by Cardinael et al. (2018), this model follows a three pool model. This three pool model is based on an existing 2 pool model from Guenet et al. (2013)\cite{Guenet13}.
+The model is defined in the paper by Cardinael et al. (2018)\cite{Cardinael18}, this model follows a three pool model. This three pool model is based on an existing 2 pool model from Guenet et al. (2013)\cite{Guenet13}.
 
-The fresh organic compound (FOC) difference can be found in formula \ref{eq:deltafoc}. This formula calculates the difference of FOC. This is calculated by using the input of carbon, given by $I_{t,z,d}$. This is calculated by adding all the imports from the different environmental inputs (Tree, Grass, and Crop). The parameter $f_{2}$ in formula \ref{eq:deltafoc} gives the fraction of decomposed Humified Soil Organic Carbon (HSOC) that enters the FOC pool.
+The fresh organic compound (FOC) difference can be found in formula \ref{eq:deltafoc}, this formula calculates the difference of FOC by using the input of carbon, given by $I_{t,z,d}$. This is calculated by adding all the imports from the different environmental inputs (Tree, Grass, and Crop). The parameter $f_{2}$ in formula \ref{eq:deltafoc} gives the fraction of decomposed Humified Soil Organic Carbon (HSOC) that enters the FOC pool.
 
 \begin{equation} \label{eq:deltafoc}\
 \begin{aligned}
@@ -41,13 +41,13 @@ The fresh organic compound (FOC) difference can be found in formula \ref{eq:delt
 \end{aligned}
 \end{equation}
 
-The $\frac{\delta F_{AD}}{\delta z}$ parameter in formula \ref{eq:deltafoc} corresponds to the flux of carbon in the soil that is transported downwards. This flux is given by formula \ref{eq:FAD}. In formulas \ref{eq:deltafoc}, \ref{eq:deltahsoc1}, and \ref{eq:deltahsoc2}, $h$ represents the fraction that is humified. This mechanism was developed by Elzein and Balesdent(1995)\cite{ElzBa95}.
+The $\frac{\delta F_{AD}}{\delta z}$ parameter in formula \ref{eq:deltafoc} corresponds to the flux of carbon in the soil that is transported downwards. This flux is given by formula \ref{eq:FAD}. In formulas \ref{eq:deltafoc}, \ref{eq:deltahsoc1}, and \ref{eq:deltahsoc2}, $h$ represents the fraction that is humified. This mechanism was developed by Elzein and Balesdent (1995)\cite{ElzBa95}.
 
 \begin{equation} \label{eq:FAD}
   F_{AD} = F_{A} + F_{D}
 \end{equation}
 
-In formula \ref{eq:FAD} the $F_{D}$ corresponds to Fick's law. This law is represented by formula \ref{eq:fick}. In the model by Cardinael et al. \ref{Cardinael18} the tillage level is also taken into account by the use of Fick's law. This tillage level is set on depth upto 0.2 meters. This is due to the usage of agricultural machinery that mixes the top layer of the soil. 
+In formula \ref{eq:FAD} the $F_{D}$ corresponds to Fick's law. This law is represented by formula \ref{eq:fick}. In the model by Cardinael et al. \cite{Cardinael18} the tillage level is also taken into account by the use of Fick's law. This tillage level is set on depth upto 0.2 meters. This is due to the usage of agricultural machinery that mixes the top layer of the soil. 
 
 \begin{equation} \label{eq:fick}
   F_{D} = -D * \frac{\delta ^2 C}{\delta z^2}
@@ -59,11 +59,13 @@ The $F_{A}$ parameter in \ref{eq:FAD} represents the advection. This represents 
   F_{A} = A * C
 \end{equation}
 
-The A parameters in formula \ref{eq:advec} represents the advection rate in mm per year. 
+The A parameter in formula \ref{eq:advec} represents the advection rate in mm per year. 
 Formula \ref{eq:deltahsoc1} gives the difference in humified soil organic carbon (HSOC). This is calculated by using the flux described in formula \ref{eq:fick}.
 
 \begin{equation} \label{eq:deltahsoc1}
- \frac{\delta HSOC1}{\delta t} = \frac{\delta F_{AD}}{\delta z} + h * f_{1} * dec\_FOC_{t,z,d} - dec\_HSOC1_{t,z,d}
+\begin{aligned}
+ \frac{\delta HSOC1}{\delta t} = \frac{\delta F_{AD}}{\delta z} + h * f_{1} * dec\_FOC_{t,z,d} \\ - dec\_HSOC1_{t,z,d}
+\end{aligned}
 \end{equation}
 
 Formula \ref{eq:deltahsoc2} gives the difference in the second HSOC pool in the model. The difference between formula \ref{eq:deltahsoc2} and formula \ref{eq:deltahsoc1} is the fact that in formula \ref{eq:deltahsoc2} the $dec\_HSOC2_{t,z,d}$ is substracted from $dec\_HSOC1_{t,z,d}$
@@ -77,7 +79,7 @@ Formula \ref{eq:deltahsoc2} gives the difference in the second HSOC pool in the 
 
 ## Understanding the model
 
-The model was taken apart for better understanding of the code and its functions. The model was divided into several parts which each correspond to a parameter or group of parameters. After dividing the code into chunks the inputs and outputs of the chunks were examined to get a better understanding of the model. 
+The model was taken apart for better understanding of the code and its functions. The model was divided into several parts which each correspond to a single parameter or group of parameters. After dividing the code into chunks the inputs and outputs of these chunks were examined to get a better understanding of the model. 
 
 
 
@@ -106,20 +108,16 @@ For the roots profile, at first there is created a matrix. This matrix contains 
 -- zet anders de waarde in de matrix
 
 # Discussion
-
-The model by Cardinael et al. 2018 \cite{Cardinael18} was a hard model to rewrite. This was eventually not done due to time issues. The code was taken apart en examined and we understand it completely. We wanted to add a nitrogen model to the model to extend the existing model to be more versatile and be able to tell more about the soil. This was not done, due to the hard coded model that we took apart. After trying to rewrite the model we came across the limit of time. This low amount of time resulted into the fact that we were not able to rewrite the model. When we found out that we wouldn't be able to rewrite it in time, we decided to take apart the code completely and making further research easier. This was due to the fact that the model was not suited for extending with other models. 
+The model by Cardinael et al. 2018 \cite{Cardinael18} was a hard model to rewrite. The rewriting of the model was eventually not done due to time issues. The code was taken apart en examined and we understand it completely. We wanted to add a nitrogen model to the model to extend the existing model to be more versatile and be able to tell more about the soil. This was not done. When we found out that we wouldn't be able to rewrite it in time, we decided to take apart the code completely and making further research easier. This was due to the fact that the model was not suited for extending with other models. 
 
 The roots profile part of the model can be rewritten into a better code chunk. The 5 for loops can be rewritten into a lot less lines with more efficiency. 
 
-The model can be eventually used in different and expanding studies. The model is very interesting because a lot of soil data is collected yearly and can be used to give a better understanding of the needs of the agricultural plot. When adding a nitrogen model, the model can be used in more situations and give better insights in the status of the agricultural plot. There are a lot of different soil models that can be combined with the SOC model, these are for example, the phosphate model, the potassium model, and salt models. 
+The model can be eventually used in different and expanding studies. The model is very interesting because a lot of soil data is collected yearly and this data can be used to give a better understanding of the needs of the agricultural plot. When adding a nitrogen model, the model can be used in more situations and give better insights in the status of the agricultural plot. There are a lot of different soil models that can be combined with the SOC model, these are for example, the phosphate model, the potassium model, and salt models. 
 
 # Conclusion
-The model gives a good indication what is possible with modeling resources available in the soi, however this model only gives the carbon and is only a representation of the plots used in Cardinael et al. \cite{Cardinael18}. After understanding the model the problems of the model where highlighted to make adapting this model easier. This model gives a good indication what is possible but can not be used directly to contain more resources available in the soil. 
+The model gives a good indication what is possible with modeling resources available in the soil, however this model only gives the carbon and is only a representation of the plots used in Cardinael et al. 2018 \cite{Cardinael18}. After understanding the model the problems of the model where highlighted to make adapting this model easier. This model gives a good indication what is possible but can not be used directly to contain more resources available in the soil. 
   
 This model can open up paths to modeling complete agricultural plots with their resources. These resources are important in understanding and bettering yield of the crops. A lot of fertilizer is used in agriculture, with understanding the needs of the soil, we can use our fertilizers more responsive and will reduce the impact of fertilizer on the ecosystem. 
-
-
-
 
 \begin{thebibliography}{9}
 
@@ -150,24 +148,7 @@ Elzein, A. and Balesdent, J.:\textit{Mechanistic simulation of vertical distribu
 # Appendix
 ## Roots profile
 ```{r 8-6-18a, eval=F}
-
-######### NEW CODE ##########
-profil_CR_R<-matrix(ncol=dim(d)[1],nrow=dim(z)[1])
-
-## Formula to calculate profile 26.443*exp((-2.6)*(-z[i-1,1]))
-create_crop_profile <- function(z){
-  return(26.433*exp((-2.6)*(-z))/100)
-}
-
-profil_CR_R <- create_crop_profile(z)
-profil_CR_R <- as.data.frame(rep(profil_CR_R, dim(d)[1]))
-colnames(profil_CR_R) <- as.character(d[,1])
-rownames(profil_CR_R) <- as.character(z[,1])
-profil_CR_R[z[,1]<= -1.5,] <- 0
-rofil_CR_R_SPIN<-profil_CR_R
 ####### OLD CODE #####
-
-
 #Roots profil of crop roots (% of the total root mass)
 profil_CR_R<-matrix(ncol=dim(d)[1]+1,nrow=dim(z)[1]+1)
 for (i in 1:dim(d)[1]) {profil_CR_R[1,i+1]<-d[i,]}
@@ -179,7 +160,8 @@ for (j in seq(z[1,1],z[dim(z)[1],1], by=-step_depth)){
       for (k in 1:dim(d)[1]+1)     {
         profil_CR_R[i,k]<-26.443*exp((-2.6)*(-z[i-1,1])) 
         profil_CR_R[i,k]<-profil_CR_R[i,k]/100 #Conversion from % to proportion
-        if (profil_CR_R[i,1]<limit_root_crop) {profil_CR_R[i,k]<-0} # no more crop roots below 1.5m
+        # no more crop roots below 1.5m
+        if (profil_CR_R[i,1]<limit_root_crop) {profil_CR_R[i,k]<-0} 
       }
     }
   }
@@ -190,6 +172,32 @@ for (i in 1:dim(z)[1]+1) {
     if (profil_CR_R[1,k]<=limit_grass) {profil_CR_R[i,k]<-0} # no crop on the tree line
   }
 }		
+
+######### NEW CODE ##########
+# create matrix with the depth and distance as dimensions
+profil_CR_R<-matrix(ncol=dim(d)[1],nrow=dim(z)[1]) 
+
+## Function with formula to calculate profile 26.443*exp((-2.6)*(-z[i-1,1]))
+create_crop_profile <- function(z){
+  return(26.433*exp((-2.6)*(-z))/100)
+}
+
+# Puts all the values in dataframe
+profil_CR_R <- create_crop_profile(z)
+
+# Expands the dataframe with the data
+profil_CR_R <- as.data.frame(rep(profil_CR_R, dim(d)[1]))
+
+# Set names of column and rows
+colnames(profil_CR_R) <- as.character(d[,1])
+rownames(profil_CR_R) <- as.character(z[,1])
+
+# Puts profil_CR_R into profil_CR_R_SPIN
+profil_CR_R_SPIN<-profil_CR_R
+
+# No more crop roots below 1.5m
+profil_CR_R[z[,1]<= -1.5,] <- 0
+
 
 ```
 
